@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PC-Craft — Build your dream custom PC or shop premium pre-built systems. Modern PC builder with real-time pricing." />
+  <title>PC-Craft | Craft Your Ultimate Dream Machine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+/* ═══════════════════════════════════════════════════════════════
+   PC-CRAFT — style.css
+   Dark tech aesthetic | Orbitron + Exo 2 | Cyan accent
+═══════════════════════════════════════════════════════════════ */
+:root {
+  --bg:           #08090f;
+  --bg-2:         #0d0e17;
+  --bg-3:         #12131e;
+  --bg-4:         #181925;
+  --border:       #1e2035;
+  --border-bright:#2a2d4a;
+  --accent:       #00d4ff;
+  --accent-dim:   rgba(0, 212, 255, 0.15);
+  --accent-glow:  rgba(0, 212, 255, 0.4);
+  --accent2:      #7c5cfc;
+  --accent2-dim:  rgba(124, 92, 252, 0.15);
+  --success:      #00ff9d;
+  --warning:      #ffb800;
+  --danger:       #ff4757;
+  --text:         #e8eaf0;
+  --text-muted:   #6b7280;
+  --text-dim:     #9ca3af;
+  --font-display: 'Orbitron', sans-serif;
+  --font-body:    'Exo 2', sans-serif;
+  --radius:       8px;
+  --radius-lg:    14px;
+  --shadow:       0 4px 24px rgba(0,0,0,0.5);
+  --shadow-accent:0 0 20px rgba(0,212,255,0.2);
+  --transition:   0.2s ease;
+  --nav-h:        64px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+input { font-family: var(--font-body); }
+img { max-width: 100%; display: block; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.accent { color: var(--accent); }
+.hidden { display: none !important; }
+.full-width { width: 100%; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: var(--radius); font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: all var(--transition); cursor: pointer; white-space: nowrap; }
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.btn-primary { background: var(--accent); color: var(--bg); border: 2px solid var(--accent); }
+.btn-primary:hover { background: transparent; color: var(--accent); box-shadow: var(--shadow-accent); }
+.btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+.btn-outline:hover { background: var(--accent-dim); box-shadow: var(--shadow-accent); }
+.btn-ghost { background: transparent; color: var(--text-dim); border: 2px solid var(--border); }
+.btn-ghost:hover { border-color: var(--border-bright); color: var(--text); }
+.btn-sm { padding: 7px 14px; font-size: 0.65rem; }
+.btn-xs { padding: 5px 10px; font-size: 0.6rem; }
+
+/* NAVBAR */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: var(--nav-h); background: rgba(8,9,15,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: background var(--transition), border-color var(--transition); }
+.navbar.scrolled { background: rgba(8,9,15,0.98); border-bottom-color: var(--border-bright); }
+.nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; gap: 32px; }
+.nav-logo { font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; letter-spacing: 0.12em; color: var(--text); flex-shrink: 0; }
+.logo-bracket, .logo-accent { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 4px; flex: 1; }
+.nav-link { padding: 8px 14px; border-radius: var(--radius); font-size: 0.82rem; font-weight: 500; color: var(--text-dim); transition: all var(--transition); position: relative; }
+.nav-link::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); border-radius: 1px; transition: width var(--transition); }
+.nav-link:hover, .nav-link.active { color: var(--text); }
+.nav-link.active::after, .nav-link:hover::after { width: 60%; }
+.nav-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.nav-btn { position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-2); color: var(--text-dim); transition: all var(--transition); }
+.nav-btn svg { width: 18px; height: 18px; }
+.nav-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.badge { position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; padding: 0 4px; background: var(--accent); color: var(--bg); border-radius: 9px; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; border-radius: var(--radius); border: 1px solid var(--border); }
+.hamburger span { display: block; width: 20px; height: 2px; background: var(--text-dim); border-radius: 1px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* HERO */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: calc(var(--nav-h) + 40px) 24px 80px; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px); background-size: 48px 48px; }
+.hero-glow { position: absolute; top: -20%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(ellipse, rgba(0,212,255,0.06) 0%, transparent 70%); pointer-events: none; }
+.hero-content { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; width: 100%; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid var(--accent); border-radius: 20px; font-size: 0.72rem; font-family: var(--font-display); letter-spacing: 0.1em; color: var(--accent); margin-bottom: 24px; background: var(--accent-dim); animation: fadeInUp 0.6s ease both; }
+.hero-title { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; animation: fadeInUp 0.7s 0.1s ease both; }
+.hero-accent { color: var(--accent); text-shadow: 0 0 30px rgba(0,212,255,0.4); }
+.hero-sub { max-width: 520px; color: var(--text-dim); font-size: 1rem; line-height: 1.7; margin-bottom: 36px; animation: fadeInUp 0.7s 0.2s ease both; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; animation: fadeInUp 0.7s 0.3s ease both; }
+.hero-stats { display: flex; align-items: center; gap: 24px; animation: fadeInUp 0.7s 0.4s ease both; }
+.stat { display: flex; flex-direction: column; }
+.stat-num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-divider { width: 1px; height: 40px; background: var(--border); }
+.hero-visual { position: absolute; right: 80px; top: 50%; transform: translateY(-50%); z-index: 1; animation: floatAnim 4s ease-in-out infinite; }
+.pc-icon-ring { width: 200px; height: 200px; border: 2px solid var(--border-bright); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; animation: spin 20s linear infinite; }
+.pc-icon-ring::before { content: ''; position: absolute; inset: -8px; border: 1px solid var(--accent-dim); border-radius: 50%; border-top-color: var(--accent); animation: spin 8s linear infinite reverse; }
+.pc-icon-core { animation: spin 20s linear infinite reverse; }
+.pc-icon-core svg { width: 80px; height: 80px; }
+.hero-carousel { position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border); background: rgba(8,9,15,0.94); box-shadow: var(--shadow); margin-bottom: 32px; }
+.hero-carousel-inner { display: flex; transition: transform 0.55s ease; }
+.hero-slide { min-width: 100%; overflow: hidden; }
+.hero-slide img { width: 100%; height: auto; display: block; }
+.carousel-nav { position: absolute; top: 50%; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; transform: translateY(-50%); padding: 0 14px; pointer-events: none; }
+.carousel-btn { pointer-events: all; width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.18); background: rgba(8,9,15,0.72); color: var(--text); font-size: 1.35rem; display: inline-flex; align-items: center; justify-content: center; transition: transform var(--transition), background var(--transition); }
+.carousel-btn:hover { background: rgba(0,212,255,0.18); transform: scale(1.05); }
+.carousel-dots { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; gap: 10px; z-index: 1; }
+.carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35); cursor: pointer; transition: transform var(--transition), background var(--transition); }
+.carousel-dot.active { background: var(--accent); transform: scale(1.15); border-color: var(--accent); }
+
+/* SECTION BASE */
+.section { padding: 100px 0; scroll-margin-top: var(--nav-h); }
+.section-dark { background: var(--bg-2); }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-tag { display: inline-block; padding: 5px 14px; border: 1px solid var(--border-bright); border-radius: 20px; font-size: 0.7rem; font-family: var(--font-display); letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; }
+.section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+.section-sub { color: var(--text-muted); max-width: 480px; margin: 0 auto; }
+
+/* FILTER BAR */
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+.filter-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-3); color: var(--text-muted); font-size: 0.8rem; font-weight: 500; transition: all var(--transition); font-family: var(--font-body); }
+.filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+/* PRE-BUILT CARDS */
+.prebuilts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+.prebuilt-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; animation: fadeInUp 0.5s ease both; }
+.prebuilt-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-accent); }
+.prebuilt-card.hidden-card { display: none; }
+.card-image { position: relative; aspect-ratio: 16/9; background: var(--bg-3); overflow: hidden; }
+.card-image img, .card-image svg, .comp-image img { width: 100%; height: 100%; object-fit: contain; }
+.card-image .card-svg { width: 100%; height: 100%; }
+.prebuilt-card:hover .card-image img { opacity: 1; }
+.card-badge { position: absolute; top: 12px; left: 12px; padding: 4px 10px; background: var(--accent); color: var(--bg); border-radius: 4px; font-family: var(--font-display); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.card-tier { position: absolute; top: 12px; right: 12px; padding: 4px 10px; border: 1px solid var(--border-bright); background: rgba(8,9,15,0.8); color: var(--text-dim); border-radius: 4px; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.card-title { font-family: var(--font-display); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 6px; }
+.card-desc { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 16px; }
+.card-specs { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; flex: 1; }
+.spec-row { display: flex; gap: 8px; font-size: 0.78rem; }
+.spec-key { color: var(--text-muted); min-width: 80px; flex-shrink: 0; }
+.spec-val { color: var(--text); font-weight: 500; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); gap: 12px; }
+.card-price { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+.card-actions { display: flex; gap: 8px; }
+
+/* CUSTOM BUILDER */
+.builder-layout { display: grid; grid-template-columns: 1fr 360px; gap: 28px; align-items: start; }
+.builder-category-label { font-family: var(--font-display); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); padding: 8px 0 8px 4px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+.builder-slots { display: flex; flex-direction: column; gap: 8px; }
+.slot { display: grid; grid-template-columns: 40px 1fr auto auto auto; align-items: center; gap: 14px; padding: 14px 16px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); transition: all var(--transition); }
+.slot:hover { border-color: var(--border-bright); }
+.slot.filled { border-color: rgba(0,212,255,0.3); background: rgba(0,212,255,0.04); }
+.slot.has-warning { border-color: rgba(255,184,0,0.4); background: rgba(255,184,0,0.04); }
+.slot.has-error { border-color: rgba(255,71,87,0.4); background: rgba(255,71,87,0.04); }
+.slot-icon { font-size: 1.2rem; text-align: center; }
+.slot-info { min-width: 0; }
+.slot-name { font-family: var(--font-display); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.slot-required { font-size: 0.55rem; padding: 1px 5px; background: rgba(255,71,87,0.15); color: var(--danger); border-radius: 3px; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.04em; }
+.slot-optional { font-size: 0.55rem; padding: 1px 5px; background: rgba(107,114,128,0.2); color: var(--text-muted); border-radius: 3px; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.04em; }
+.slot-selected { font-size: 0.82rem; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.slot.filled .slot-selected { color: var(--text); }
+.slot-price { font-family: var(--font-display); font-size: 0.82rem; font-weight: 600; color: var(--accent); min-width: 60px; text-align: right; }
+.slot-btn { padding: 6px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-4); color: var(--text-dim); font-size: 0.68rem; font-family: var(--font-display); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; transition: all var(--transition); white-space: nowrap; }
+.slot-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.slot-clear { width: 28px; height: 28px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-4); color: var(--text-muted); font-size: 0.75rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+.slot-clear:hover { border-color: var(--danger); color: var(--danger); background: rgba(255,71,87,0.1); }
+
+/* BUILDER PANEL */
+.builder-panel { display: flex; flex-direction: column; gap: 16px; position: sticky; top: calc(var(--nav-h) + 16px); }
+.panel-card { background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; }
+.panel-card-header { font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.compat-status { padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; }
+.compat-status.ok { background: rgba(0,255,157,0.15); color: var(--success); }
+.compat-status.warn { background: rgba(255,184,0,0.15); color: var(--warning); }
+.compat-status.error { background: rgba(255,71,87,0.15); color: var(--danger); }
+.compat-hint { font-size: 0.78rem; color: var(--text-muted); }
+.compat-error { font-size: 0.78rem; color: var(--danger); padding: 6px 10px; background: rgba(255,71,87,0.08); border-radius: var(--radius); border-left: 3px solid var(--danger); margin-bottom: 6px; }
+.compat-warning { font-size: 0.78rem; color: var(--warning); padding: 6px 10px; background: rgba(255,184,0,0.08); border-radius: var(--radius); border-left: 3px solid var(--warning); margin-bottom: 6px; }
+.power-bar-wrap { margin-bottom: 10px; }
+.power-bar { height: 8px; background: var(--bg-4); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+.power-bar-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.4s ease, background 0.3s; }
+.power-bar-fill.warn { background: var(--warning); }
+.power-bar-fill.danger { background: var(--danger); }
+.power-numbers { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-display); }
+.power-status { font-size: 0.78rem; color: var(--text-muted); }
+.rec-item { display: flex; gap: 8px; font-size: 0.78rem; color: var(--text-dim); margin-bottom: 8px; line-height: 1.5; }
+.rec-item span:first-child { flex-shrink: 0; }
+.build-summary-row { display: grid; grid-template-columns: 90px 1fr auto; gap: 8px; font-size: 0.75rem; padding: 5px 0; border-bottom: 1px solid var(--border); align-items: center; }
+.build-summary-row:last-child { border-bottom: none; }
+.build-summary-key { color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.build-summary-val { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.build-summary-price { color: var(--accent); font-family: var(--font-display); font-weight: 600; white-space: nowrap; }
+.summary-card {}
+.summary-total { display: flex; justify-content: space-between; align-items: center; padding: 14px 0 14px; border-top: 1px solid var(--border-bright); margin-top: 8px; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+.total-price { font-size: 1.3rem; color: var(--accent); }
+.builder-actions { display: flex; flex-direction: column; gap: 8px; }
+
+/* COMPONENTS CATALOG */
+.catalog-controls { margin-bottom: 32px; display: flex; flex-direction: column; gap: 16px; }
+.catalog-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tab-btn { padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-3); color: var(--text-muted); font-size: 0.75rem; font-weight: 500; transition: all var(--transition); font-family: var(--font-body); }
+.tab-btn:hover, .tab-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.catalog-search-wrap { position: relative; max-width: 360px; }
+.catalog-search { width: 100%; padding: 10px 40px 10px 14px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 0.85rem; outline: none; transition: border-color var(--transition); }
+.catalog-search:focus { border-color: var(--accent); }
+.catalog-search::placeholder { color: var(--text-muted); }
+.search-icon { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none; }
+.components-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.component-card { background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s ease; animation: fadeInUp 0.4s ease both; }
+.component-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-accent); }
+.comp-image { position: relative; height: 160px; background: var(--bg-4); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.comp-image svg { width: 100%; height: 100%; }
+.comp-image .comp-icon { font-size: 3rem; opacity: 0.3; }
+.comp-body { padding: 16px; }
+.comp-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+.comp-brand { font-size: 0.72rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.comp-specs { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+.comp-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
+.comp-price { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--accent); }
+.comp-actions { display: flex; gap: 6px; }
+.wishlist-icon-btn { width: 32px; height: 32px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-4); color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+.wishlist-icon-btn:hover, .wishlist-icon-btn.wishlisted { border-color: #ff4757; color: #ff4757; background: rgba(255,71,87,0.1); }
+.wishlist-icon-btn svg { width: 14px; height: 14px; }
+
+/* CART / WISHLIST DRAWERS */
+.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1100; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.drawer-overlay.active { opacity: 1; pointer-events: all; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 100vw; background: var(--bg-2); border-left: 1px solid var(--border); z-index: 1200; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; }
+.drawer.open { transform: translateX(0); }
+.drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.drawer-header h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.06em; }
+.drawer-close { width: 32px; height: 32px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-3); color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+.drawer-close:hover { border-color: var(--danger); color: var(--danger); }
+.drawer-body { flex: 1; overflow-y: auto; padding: 16px; }
+.drawer-footer { padding: 16px; border-top: 1px solid var(--border); flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
+.cart-total { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+#cartTotal { font-size: 1.2rem; color: var(--accent); }
+.cart-item { display: flex; gap: 12px; padding: 12px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; }
+.cart-item-left { flex: 1; min-width: 0; }
+.cart-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.cart-item-name { font-size: 0.85rem; font-weight: 500; margin-bottom: 2px; }
+.cart-item-sub { font-size: 0.72rem; color: var(--text-muted); }
+.cart-item-price { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; color: var(--accent); }
+.qty-controls { display: flex; align-items: center; gap: 8px; }
+.qty-btn { width: 24px; height: 24px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-4); color: var(--text); font-size: 0.9rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+.qty-btn:hover { border-color: var(--accent); color: var(--accent); }
+.qty-num { font-family: var(--font-display); font-size: 0.85rem; font-weight: 600; min-width: 20px; text-align: center; }
+.remove-btn { font-size: 0.72rem; color: var(--danger); background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.2); border-radius: 4px; padding: 3px 8px; transition: all var(--transition); }
+.remove-btn:hover { background: rgba(255,71,87,0.2); }
+.empty-state { text-align: center; padding: 48px 24px; }
+.empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+.empty-state p { color: var(--text-muted); font-size: 0.85rem; }
+.empty-sub { font-size: 0.78rem !important; color: var(--text-muted); opacity: 0.7; margin-top: 6px; }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal { background: var(--bg-2); border: 1px solid var(--border-bright); border-radius: var(--radius-lg); width: 100%; max-width: 600px; max-height: 80vh; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.3s; }
+.modal-overlay.active .modal { transform: scale(1); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 14px; border-bottom: 1px solid var(--border); }
+.modal-header h3 { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; letter-spacing: 0.06em; }
+.modal-close { width: 32px; height: 32px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-3); color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: all var(--transition); }
+.modal-close:hover { border-color: var(--danger); color: var(--danger); }
+.modal-search-wrap { padding: 12px 20px; border-bottom: 1px solid var(--border); }
+.modal-search { width: 100%; padding: 9px 14px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-size: 0.85rem; outline: none; transition: border-color var(--transition); }
+.modal-search:focus { border-color: var(--accent); }
+.modal-search::placeholder { color: var(--text-muted); }
+.modal-body { overflow-y: auto; padding: 14px 20px; display: flex; flex-direction: column; gap: 8px; }
+.modal-item { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px; padding: 12px 14px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); cursor: pointer; transition: all var(--transition); }
+.modal-item:hover { border-color: var(--accent); background: var(--accent-dim); }
+.modal-item.selected { border-color: var(--accent); background: rgba(0,212,255,0.08); }
+.modal-item-name { font-size: 0.85rem; font-weight: 500; margin-bottom: 2px; }
+.modal-item-sub { font-size: 0.72rem; color: var(--text-muted); }
+.modal-item-price { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+.modal-item-select { padding: 6px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-4); color: var(--text-dim); font-size: 0.68rem; font-family: var(--font-display); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; transition: all var(--transition); }
+.modal-item:hover .modal-item-select { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.modal-item.selected .modal-item-select { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+/* TOAST */
+.toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 3000; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.82rem; min-width: 260px; max-width: 340px; box-shadow: var(--shadow); animation: slideInRight 0.3s ease, fadeOut 0.4s 2.6s ease forwards; pointer-events: all; }
+.toast.success { border-left: 3px solid var(--success); }
+.toast.warning { border-left: 3px solid var(--warning); }
+.toast.error   { border-left: 3px solid var(--danger); }
+.toast.info    { border-left: 3px solid var(--accent); }
+.toast-icon { font-size: 1rem; flex-shrink: 0; }
+.toast-msg { flex: 1; }
+
+/* LOADING */
+.loading-spinner { grid-column: 1 / -1; display: flex; justify-content: center; padding: 60px; }
+.spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+/* FOOTER */
+.footer { background: var(--bg-2); border-top: 1px solid var(--border); padding: 60px 0 0; }
+.footer-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand p { margin-top: 12px; color: var(--text-muted); font-size: 0.82rem; max-width: 280px; line-height: 1.7; }
+.footer-links { display: flex; gap: 48px; }
+.footer-col { display: flex; flex-direction: column; gap: 10px; }
+.footer-col-title { font-family: var(--font-display); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.footer-col a { font-size: 0.82rem; color: var(--text-dim); transition: color var(--transition); }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { border-top: 1px solid var(--border); padding: 20px 0; text-align: center; font-size: 0.78rem; color: var(--text-muted); }
+
+/* ANIMATIONS */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes floatAnim { 0%, 100% { transform: translateY(-50%) translateY(0); } 50% { transform: translateY(-50%) translateY(-16px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeOut { to { opacity: 0; transform: translateY(8px); } }
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .builder-layout { grid-template-columns: 1fr; }
+  .builder-panel { position: static; }
+  .hero-visual { display: none; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links { position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--bg-2); border-bottom: 1px solid var(--border); padding: 16px 24px; flex-direction: column; align-items: flex-start; gap: 4px; transform: translateY(-120%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 999; }
+  .nav-links.open { transform: translateY(0); }
+  .hero-stats { flex-wrap: wrap; gap: 16px; }
+  .stat-divider { display: none; }
+  .prebuilts-grid { grid-template-columns: 1fr; }
+  .components-grid { grid-template-columns: 1fr; }
+  .slot { grid-template-columns: 36px 1fr auto; grid-template-rows: auto auto; }
+  .slot-price { grid-column: 3; grid-row: 1; }
+  .slot-btn { grid-column: 2; grid-row: 2; justify-self: start; }
+  .slot-clear { grid-column: 3; grid-row: 2; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-links { flex-wrap: wrap; gap: 24px; }
+  .modal { max-width: 100%; max-height: 90vh; }
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .drawer { max-width: 100%; }
+  .catalog-tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+  .catalog-tabs::-webkit-scrollbar { height: 3px; }
+}
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .card-footer { flex-direction: column; align-items: flex-start; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <span class="logo-bracket">[</span>PC<span class="logo-accent">-</span>CRAFT<span class="logo-bracket">]</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#prebuilts" class="nav-link">Pre-built PCs</a></li>
+        <li><a href="#builder" class="nav-link">Custom Builder</a></li>
+        <li><a href="#components" class="nav-link">Components</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-btn wishlist-btn" id="wishlistToggle" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          <span class="badge" id="wishlistCount">0</span>
+        </button>
+        <button class="nav-btn cart-btn" id="cartToggle" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-carousel" aria-label="Banner carousel">
+        <div class="hero-carousel-inner" id="heroCarouselInner">
+          <div class="hero-slide"><img src="Banners/1885x424px-PBA-Banner_1920x.png" alt="PC components showcase banner"></div>
+          <div class="hero-slide"><img src="Banners/AMD_Ryzen_9950X3D2_PCX_1800x600px_1_1920x.png" alt="AMD Ryzen 9000 Series banner"></div>
+          <div class="hero-slide"><img src="Banners/AMD_Website_Crimson_Desert_1920x.png" alt="Crimson Desert promotional banner"></div>
+          <div class="hero-slide"><img src="Banners/Desktop_Banner_D1_1920x_8e22fa3b-5d29-4875-bf43-20a6776e55fe_1920x.png" alt="Desktop gaming setup banner"></div>
+          <div class="hero-slide"><img src="Banners/viber_image_2025-07-03_13-40-54-866_1920x.png" alt="NVIDIA AI powered PC banner"></div>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="carouselPrev" aria-label="Previous banner">‹</button>
+          <button class="carousel-btn" id="carouselNext" aria-label="Next banner">›</button>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+      <div class="hero-actions">
+        <a href="#builder" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+          Start Custom Builder
+        </a>
+        <a href="#prebuilts" class="btn btn-outline">Shop Pre-builts</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">200+</span><span class="stat-label">Components</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">6</span><span class="stat-label">Pre-built Configs</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">18</span><span class="stat-label">Build Slots</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="pc-icon-ring">
+        <div class="pc-icon-core">
+          <svg viewBox="0 0 80 80" fill="none"><rect x="10" y="10" width="60" height="60" rx="6" stroke="var(--accent)" stroke-width="2"/><rect x="20" y="20" width="40" height="40" rx="4" fill="var(--accent)" fill-opacity="0.1" stroke="var(--accent)" stroke-width="1.5"/><circle cx="40" cy="40" r="10" stroke="var(--accent)" stroke-width="2"/><circle cx="40" cy="40" r="4" fill="var(--accent)"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRE-BUILTS -->
+  <section class="section" id="prebuilts">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Ready to Ship</div>
+        <h2 class="section-title">Featured <span class="accent">Pre-builts</span></h2>
+        <p class="section-sub">Hand-picked builds for every use case and budget</p>
+      </div>
+      <div class="filter-bar" id="prebuiltFilters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="gaming">Gaming</button>
+        <button class="filter-btn" data-filter="workstation">Workstation</button>
+        <button class="filter-btn" data-filter="budget">Budget</button>
+        <button class="filter-btn" data-filter="office">Office</button>
+      </div>
+      <div class="prebuilts-grid" id="prebuiltsGrid">
+        <div class="loading-spinner"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOM BUILDER -->
+  <section class="section section-dark" id="builder">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Your Rig, Your Rules</div>
+        <h2 class="section-title">Custom PC <span class="accent">Builder</span></h2>
+        <p class="section-sub">Select parts to build your custom rig. Real-time compatibility and power tracking.</p>
+      </div>
+      <div class="builder-layout">
+        <div class="builder-slots">
+          <div class="builder-category-label">⚙️ Core Components</div>
+          <div class="slot" id="slot-cpu" data-slot="cpu"><div class="slot-icon">🔲</div><div class="slot-info"><div class="slot-name">CPU <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-cpu">No CPU selected</div></div><div class="slot-price" id="price-cpu">—</div><button class="slot-btn" data-slot="cpu">Choose</button><button class="slot-clear hidden" data-slot="cpu">✕</button></div>
+          <div class="slot" id="slot-motherboard" data-slot="motherboard"><div class="slot-icon">🖥️</div><div class="slot-info"><div class="slot-name">Motherboard <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-motherboard">No Motherboard selected</div></div><div class="slot-price" id="price-motherboard">—</div><button class="slot-btn" data-slot="motherboard">Choose</button><button class="slot-clear hidden" data-slot="motherboard">✕</button></div>
+          <div class="slot" id="slot-ram" data-slot="ram"><div class="slot-icon">💾</div><div class="slot-info"><div class="slot-name">RAM <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-ram">No RAM selected</div></div><div class="slot-price" id="price-ram">—</div><button class="slot-btn" data-slot="ram">Choose</button><button class="slot-clear hidden" data-slot="ram">✕</button></div>
+          <div class="slot" id="slot-gpu" data-slot="gpu"><div class="slot-icon">🎮</div><div class="slot-info"><div class="slot-name">GPU <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-gpu">No GPU selected</div></div><div class="slot-price" id="price-gpu">—</div><button class="slot-btn" data-slot="gpu">Choose</button><button class="slot-clear hidden" data-slot="gpu">✕</button></div>
+          <div class="slot" id="slot-storage_primary" data-slot="storage_primary"><div class="slot-icon">💿</div><div class="slot-info"><div class="slot-name">Primary Storage <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-storage_primary">No Primary Storage selected</div></div><div class="slot-price" id="price-storage_primary">—</div><button class="slot-btn" data-slot="storage_primary">Choose</button><button class="slot-clear hidden" data-slot="storage_primary">✕</button></div>
+          <div class="slot" id="slot-storage_secondary" data-slot="storage_secondary"><div class="slot-icon">💿</div><div class="slot-info"><div class="slot-name">Secondary Storage <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-storage_secondary">No Secondary Storage selected</div></div><div class="slot-price" id="price-storage_secondary">—</div><button class="slot-btn" data-slot="storage_secondary">Choose</button><button class="slot-clear hidden" data-slot="storage_secondary">✕</button></div>
+          <div class="slot" id="slot-psu" data-slot="psu"><div class="slot-icon">⚡</div><div class="slot-info"><div class="slot-name">Power Supply <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-psu">No PSU selected</div></div><div class="slot-price" id="price-psu">—</div><button class="slot-btn" data-slot="psu">Choose</button><button class="slot-clear hidden" data-slot="psu">✕</button></div>
+          <div class="slot" id="slot-case" data-slot="case"><div class="slot-icon">🖥</div><div class="slot-info"><div class="slot-name">Case <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-case">No Case selected</div></div><div class="slot-price" id="price-case">—</div><button class="slot-btn" data-slot="case">Choose</button><button class="slot-clear hidden" data-slot="case">✕</button></div>
+          <div class="slot" id="slot-cooler" data-slot="cooler"><div class="slot-icon">🌀</div><div class="slot-info"><div class="slot-name">CPU Cooler <span class="slot-required">Required</span></div><div class="slot-selected" id="selected-cooler">No CPU Cooler selected</div></div><div class="slot-price" id="price-cooler">—</div><button class="slot-btn" data-slot="cooler">Choose</button><button class="slot-clear hidden" data-slot="cooler">✕</button></div>
+          <div class="slot" id="slot-case_fans" data-slot="case_fans"><div class="slot-icon">💨</div><div class="slot-info"><div class="slot-name">Case Fans <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-case_fans">No Case Fans selected</div></div><div class="slot-price" id="price-case_fans">—</div><button class="slot-btn" data-slot="case_fans">Choose</button><button class="slot-clear hidden" data-slot="case_fans">✕</button></div>
+          <div class="slot" id="slot-os" data-slot="os"><div class="slot-icon">🪟</div><div class="slot-info"><div class="slot-name">Operating System <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-os">No OS selected</div></div><div class="slot-price" id="price-os">—</div><button class="slot-btn" data-slot="os">Choose</button><button class="slot-clear hidden" data-slot="os">✕</button></div>
+          <div class="builder-category-label">🖱️ Peripherals &amp; Add-ons</div>
+          <div class="slot" id="slot-monitor" data-slot="monitor"><div class="slot-icon">🖥️</div><div class="slot-info"><div class="slot-name">Monitor <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-monitor">No Monitor selected</div></div><div class="slot-price" id="price-monitor">—</div><button class="slot-btn" data-slot="monitor">Choose</button><button class="slot-clear hidden" data-slot="monitor">✕</button></div>
+          <div class="slot" id="slot-keyboard" data-slot="keyboard"><div class="slot-icon">⌨️</div><div class="slot-info"><div class="slot-name">Keyboard <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-keyboard">No Keyboard selected</div></div><div class="slot-price" id="price-keyboard">—</div><button class="slot-btn" data-slot="keyboard">Choose</button><button class="slot-clear hidden" data-slot="keyboard">✕</button></div>
+          <div class="slot" id="slot-mouse" data-slot="mouse"><div class="slot-icon">🖱️</div><div class="slot-info"><div class="slot-name">Mouse <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-mouse">No Mouse selected</div></div><div class="slot-price" id="price-mouse">—</div><button class="slot-btn" data-slot="mouse">Choose</button><button class="slot-clear hidden" data-slot="mouse">✕</button></div>
+          <div class="slot" id="slot-headset" data-slot="headset"><div class="slot-icon">🎧</div><div class="slot-info"><div class="slot-name">Headset <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-headset">No Headset selected</div></div><div class="slot-price" id="price-headset">—</div><button class="slot-btn" data-slot="headset">Choose</button><button class="slot-clear hidden" data-slot="headset">✕</button></div>
+          <div class="slot" id="slot-mousepad" data-slot="mousepad"><div class="slot-icon">🟫</div><div class="slot-info"><div class="slot-name">Mousepad <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-mousepad">No Mousepad selected</div></div><div class="slot-price" id="price-mousepad">—</div><button class="slot-btn" data-slot="mousepad">Choose</button><button class="slot-clear hidden" data-slot="mousepad">✕</button></div>
+          <div class="slot" id="slot-webcam" data-slot="webcam"><div class="slot-icon">📷</div><div class="slot-info"><div class="slot-name">Webcam <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-webcam">No Webcam selected</div></div><div class="slot-price" id="price-webcam">—</div><button class="slot-btn" data-slot="webcam">Choose</button><button class="slot-clear hidden" data-slot="webcam">✕</button></div>
+          <div class="slot" id="slot-ups" data-slot="ups"><div class="slot-icon">🔋</div><div class="slot-info"><div class="slot-name">UPS / Surge Protector <span class="slot-optional">Optional</span></div><div class="slot-selected" id="selected-ups">No UPS selected</div></div><div class="slot-price" id="price-ups">—</div><button class="slot-btn" data-slot="ups">Choose</button><button class="slot-clear hidden" data-slot="ups">✕</button></div>
+        </div>
+        <div class="builder-panel">
+          <div class="panel-card" id="compatibilityPanel">
+            <div class="panel-card-header"><span>⚠️ Compatibility</span><span class="compat-status ok" id="compatStatus">All Good</span></div>
+            <div id="compatWarnings"><p class="compat-hint">Select components to check compatibility.</p></div>
+          </div>
+          <div class="panel-card">
+            <div class="panel-card-header">⚡ Power Estimator</div>
+            <div class="power-bar-wrap">
+              <div class="power-bar"><div class="power-bar-fill" id="powerBarFill" style="width:0%"></div></div>
+              <div class="power-numbers"><span id="powerDraw">0W draw</span><span id="powerCap">/ 0W PSU</span></div>
+            </div>
+            <div class="power-status" id="powerStatus">— Select a PSU —</div>
+          </div>
+          <div class="panel-card">
+            <div class="panel-card-header">💡 Recommendations</div>
+            <div id="buildRecommendations"><p class="compat-hint">Start selecting parts for smart suggestions.</p></div>
+          </div>
+          <div class="panel-card summary-card">
+            <div class="panel-card-header">📋 Build Summary</div>
+            <div id="buildSummaryList"><p class="compat-hint">No parts selected yet.</p></div>
+            <div class="summary-total"><span>Estimated Total</span><span class="total-price" id="builderTotal">$0.00</span></div>
+            <div class="builder-actions">
+              <button class="btn btn-primary full-width" id="addBuildToCart">Add Build to Cart</button>
+              <button class="btn btn-outline full-width" id="exportBuild">Export Build</button>
+              <button class="btn btn-ghost full-width" id="clearBuild">Clear Build</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS CATALOG -->
+  <section class="section" id="components">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Browse All Parts</div>
+        <h2 class="section-title">Components <span class="accent">Catalog</span></h2>
+        <p class="section-sub">Find individual parts across every category with full specs.</p>
+      </div>
+      <div class="catalog-controls">
+        <div class="catalog-tabs" id="catalogTabs">
+          <button class="tab-btn active" data-cat="cpu">CPU</button>
+          <button class="tab-btn" data-cat="motherboard">Motherboard</button>
+          <button class="tab-btn" data-cat="ram">RAM</button>
+          <button class="tab-btn" data-cat="gpu">GPU</button>
+          <button class="tab-btn" data-cat="storage_primary">Storage</button>
+          <button class="tab-btn" data-cat="psu">PSU</button>
+          <button class="tab-btn" data-cat="case">Case</button>
+          <button class="tab-btn" data-cat="cooler">Cooler</button>
+          <button class="tab-btn" data-cat="monitor">Monitor</button>
+          <button class="tab-btn" data-cat="keyboard">Keyboard</button>
+          <button class="tab-btn" data-cat="mouse">Mouse</button>
+          <button class="tab-btn" data-cat="headset">Headset</button>
+          <button class="tab-btn" data-cat="mousepad">Mousepad</button>
+          <button class="tab-btn" data-cat="webcam">Webcam</button>
+          <button class="tab-btn" data-cat="ups">UPS</button>
+        </div>
+        <div class="catalog-search-wrap">
+          <input type="text" id="catalogSearch" class="catalog-search" placeholder="Search components..." />
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+      </div>
+      <div class="components-grid" id="componentsGrid">
+        <div class="loading-spinner"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="nav-logo"><span class="logo-bracket">[</span>PC<span class="logo-accent">-</span>CRAFT<span class="logo-bracket">]</span></div>
+          <p>Build your ultimate dream machine. Your rig, your rules.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <div class="footer-col-title">Navigate</div>
+            <a href="#home">Home</a>
+            <a href="#prebuilts">Pre-builts</a>
+            <a href="#builder">Custom Builder</a>
+            <a href="#components">Components</a>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col-title">Categories</div>
+            <a href="#components" data-cat="cpu">CPUs</a>
+            <a href="#components" data-cat="gpu">GPUs</a>
+            <a href="#components" data-cat="monitor">Monitors</a>
+            <a href="#components" data-cat="keyboard">Keyboards</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 PC-Craft. All rights reserved.</span></div>
+    </div>
+  </footer>
+
+  <!-- DRAWERS & OVERLAYS -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="drawer" id="cartDrawer">
+    <div class="drawer-header"><h3>🛒 Shopping Cart</h3><button class="drawer-close" id="cartClose">✕</button></div>
+    <div class="drawer-body" id="cartItems"><div class="empty-state"><div class="empty-icon">🛒</div><p>Your cart is empty.</p><p class="empty-sub">Start building your dream PC!</p></div></div>
+    <div class="drawer-footer"><div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div><button class="btn btn-primary full-width" id="checkoutBtn">Proceed to Checkout</button><button class="btn btn-ghost full-width" id="clearCartBtn">Clear Cart</button></div>
+  </div>
+  <div class="drawer" id="wishlistDrawer">
+    <div class="drawer-header"><h3>❤️ Wishlist</h3><button class="drawer-close" id="wishlistClose">✕</button></div>
+    <div class="drawer-body" id="wishlistItems"><div class="empty-state"><div class="empty-icon">❤️</div><p>Your wishlist is empty.</p><p class="empty-sub">Save parts you love!</p></div></div>
+    <div class="drawer-footer"><button class="btn btn-primary full-width" id="wishlistToCart">Move All to Cart</button></div>
+  </div>
+
+  <!-- PART PICKER MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="partModal">
+      <div class="modal-header"><h3 id="modalTitle">Choose Component</h3><button class="modal-close" id="modalClose">✕</button></div>
+      <div class="modal-search-wrap"><input type="text" id="modalSearch" class="modal-search" placeholder="Search..." /></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-container" id="toastContainer"></div>
+
+<script>
+/* ═══════════════════════════════ HERO CAROUSEL ═══════════════════════════════ */
+(function() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const track = document.getElementById('heroCarouselInner');
+  const dotsRoot = document.getElementById('carouselDots');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  let activeIndex = 0;
+  if (!track || !slides.length || !dotsRoot || !prevBtn || !nextBtn) return;
+
+  slides.forEach((slide, index) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'carousel-dot';
+    dot.setAttribute('aria-label', `Show banner ${index + 1}`);
+    dot.addEventListener('click', () => {
+      activeIndex = index;
+      updateCarousel();
+    });
+    dotsRoot.appendChild(dot);
+  });
+
+  const dots = Array.from(dotsRoot.children);
+  function updateCarousel() {
+    track.style.transform = `translateX(-${activeIndex * 100}%)`;
+    dots.forEach((dot, index) => dot.classList.toggle('active', index === activeIndex));
+  }
+
+  prevBtn.addEventListener('click', () => {
+    activeIndex = (activeIndex - 1 + slides.length) % slides.length;
+    updateCarousel();
+  });
+  nextBtn.addEventListener('click', () => {
+    activeIndex = (activeIndex + 1) % slides.length;
+    updateCarousel();
+  });
+
+  let autoplay = setInterval(() => {
+    activeIndex = (activeIndex + 1) % slides.length;
+    updateCarousel();
+  }, 6000);
+
+  [prevBtn, nextBtn, dotsRoot].forEach(node => {
+    node.addEventListener('mouseenter', () => clearInterval(autoplay));
+    node.addEventListener('mouseleave', () => {
+      autoplay = setInterval(() => {
+        activeIndex = (activeIndex + 1) % slides.length;
+        updateCarousel();
+      }, 6000);
+    });
+  });
+
+  updateCarousel();
+})();
+
+/* ═══════════════════════════════ DATA ═══════════════════════════════ */
+window.PCData = {
+  prebuilts: [
+    { id:"pb001", name:"Striker X Gaming Pro", tier:"gaming", price:1499.99, badge:"Best Seller",
+      specs:{ cpu:"Intel Core i7-14700K", gpu:"NVIDIA RTX 4070 Ti", ram:"32GB DDR5 6000MHz", storage:"1TB NVMe SSD", psu:"750W 80+ Gold", case:"NZXT H7 Flow" },
+      description:"Dominate every game at 1440p with buttery-smooth framerates.", tags:["gaming","1440p","streaming"] },
+    { id:"pb002", name:"Nova Budget Beast", tier:"budget", price:699.99, badge:"Best Value",
+      specs:{ cpu:"AMD Ryzen 5 7600", gpu:"AMD RX 7600", ram:"16GB DDR5 4800MHz", storage:"500GB NVMe SSD", psu:"550W 80+ Bronze", case:"Fractal Focus G" },
+      description:"Great 1080p gaming without breaking the bank.", tags:["budget","1080p","starter"] },
+    { id:"pb003", name:"Titan Workstation Ultra", tier:"workstation", price:2999.99, badge:"Pro Pick",
+      specs:{ cpu:"AMD Ryzen 9 7950X", gpu:"NVIDIA RTX 4090", ram:"64GB DDR5 6000MHz", storage:"2TB NVMe SSD", psu:"1000W 80+ Platinum", case:"Lian Li PC-O11D XL" },
+      description:"Uncompromised power for 3D rendering, video editing, and AI workloads.", tags:["workstation","4K","rendering"] },
+    { id:"pb004", name:"Phantom Mid-Range", tier:"gaming", price:999.99, badge:"Popular",
+      specs:{ cpu:"AMD Ryzen 7 7700X", gpu:"NVIDIA RTX 4060 Ti", ram:"32GB DDR5 5200MHz", storage:"1TB NVMe SSD", psu:"650W 80+ Gold", case:"Corsair 4000D Airflow" },
+      description:"The sweet spot between price and performance for serious gamers.", tags:["gaming","1080p","1440p"] },
+    { id:"pb005", name:"Office Ace Pro", tier:"office", price:449.99, badge:"Office Pick",
+      specs:{ cpu:"Intel Core i5-13400", gpu:"Intel UHD 730 (iGPU)", ram:"16GB DDR4 3200MHz", storage:"512GB NVMe SSD", psu:"450W 80+ Bronze", case:"Fractal Node 304" },
+      description:"Fast, quiet, and reliable for everyday productivity tasks.", tags:["office","compact","productivity"] },
+    { id:"pb006", name:"Apex 4K Creator", tier:"workstation", price:1999.99, badge:"Editor's Choice",
+      specs:{ cpu:"Intel Core i9-14900K", gpu:"NVIDIA RTX 4080", ram:"64GB DDR5 5600MHz", storage:"2TB NVMe SSD", psu:"850W 80+ Gold", case:"Be Quiet! Silent Base 802" },
+      description:"Built for content creators who demand 4K video editing at full speed.", tags:["workstation","4K","video","creator"] }
+  ],
+  components: {
+    cpu: [
+      { id:"cpu001", name:"Intel Core i9-14900K", brand:"Intel", price:589.99, socket:"LGA1700", tdp:253, specs:"24-Core (8P+16E), 6GHz Boost, 36MB Cache" },
+      { id:"cpu002", name:"Intel Core i7-14700K", brand:"Intel", price:409.99, socket:"LGA1700", tdp:253, specs:"20-Core (8P+12E), 5.6GHz Boost, 33MB Cache" },
+      { id:"cpu003", name:"Intel Core i5-13600K", brand:"Intel", price:299.99, socket:"LGA1700", tdp:181, specs:"14-Core (6P+8E), 5.1GHz Boost, 24MB Cache" },
+      { id:"cpu004", name:"Intel Core i5-13400", brand:"Intel", price:199.99, socket:"LGA1700", tdp:65, specs:"10-Core (6P+4E), 4.6GHz Boost, 20MB Cache" },
+      { id:"cpu005", name:"AMD Ryzen 9 7950X", brand:"AMD", price:549.99, socket:"AM5", tdp:170, specs:"16-Core, 5.7GHz Boost, 80MB Cache, Zen 4" },
+      { id:"cpu006", name:"AMD Ryzen 9 7900X", brand:"AMD", price:399.99, socket:"AM5", tdp:170, specs:"12-Core, 5.6GHz Boost, 76MB Cache, Zen 4" },
+      { id:"cpu007", name:"AMD Ryzen 7 7700X", brand:"AMD", price:299.99, socket:"AM5", tdp:105, specs:"8-Core, 5.4GHz Boost, 40MB Cache, Zen 4" },
+      { id:"cpu008", name:"AMD Ryzen 5 7600X", brand:"AMD", price:249.99, socket:"AM5", tdp:105, specs:"6-Core, 5.3GHz Boost, 38MB Cache, Zen 4" },
+      { id:"cpu009", name:"AMD Ryzen 5 7600", brand:"AMD", price:199.99, socket:"AM5", tdp:65, specs:"6-Core, 5.1GHz Boost, 38MB Cache, Zen 4" }
+    ],
+    motherboard: [
+      { id:"mb001", name:"ASUS ROG Maximus Z790 Hero", brand:"ASUS", price:629.99, socket:"LGA1700", chipset:"Z790", specs:"DDR5, PCIe 5.0, WiFi 6E, 5G LAN" },
+      { id:"mb002", name:"MSI MEG Z790 ACE", brand:"MSI", price:499.99, socket:"LGA1700", chipset:"Z790", specs:"DDR5, PCIe 5.0, 10G LAN, Thunderbolt 4" },
+      { id:"mb003", name:"Gigabyte Z790 AORUS Elite AX", brand:"Gigabyte", price:299.99, socket:"LGA1700", chipset:"Z790", specs:"DDR5, PCIe 5.0, WiFi 6E, 2.5G LAN" },
+      { id:"mb004", name:"ASRock B760M Pro RS/D4", brand:"ASRock", price:139.99, socket:"LGA1700", chipset:"B760", specs:"DDR4, PCIe 4.0, 2.5G LAN, Micro-ATX" },
+      { id:"mb005", name:"ASUS ROG Crosshair X670E Hero", brand:"ASUS", price:699.99, socket:"AM5", chipset:"X670E", specs:"DDR5, PCIe 5.0 x16+x4, WiFi 6E, USB4" },
+      { id:"mb006", name:"MSI MEG X670E ACE", brand:"MSI", price:599.99, socket:"AM5", chipset:"X670E", specs:"DDR5, PCIe 5.0, 10G+2.5G LAN, Thunderbolt 4" },
+      { id:"mb007", name:"Gigabyte B650 AORUS Elite AX", brand:"Gigabyte", price:229.99, socket:"AM5", chipset:"B650", specs:"DDR5, PCIe 4.0, WiFi 6E, 2.5G LAN" },
+      { id:"mb008", name:"MSI PRO B650-P WiFi", brand:"MSI", price:189.99, socket:"AM5", chipset:"B650", specs:"DDR5, PCIe 4.0, WiFi 6, 2.5G LAN" }
+    ],
+    ram: [
+      { id:"ram001", name:"Corsair Dominator Platinum 32GB DDR5-6000", brand:"Corsair", price:179.99, type:"DDR5", capacity:"32GB (2x16GB)", speed:"6000MHz CL30", specs:"RGB, 1.35V, XMP 3.0" },
+      { id:"ram002", name:"G.Skill Trident Z5 RGB 32GB DDR5-6400", brand:"G.Skill", price:189.99, type:"DDR5", capacity:"32GB (2x16GB)", speed:"6400MHz CL32", specs:"RGB, 1.4V, XMP 3.0" },
+      { id:"ram003", name:"Kingston Fury Beast 16GB DDR5-5200", brand:"Kingston", price:79.99, type:"DDR5", capacity:"16GB (2x8GB)", speed:"5200MHz CL40", specs:"No RGB, 1.25V, XMP 3.0" },
+      { id:"ram004", name:"G.Skill Ripjaws V 32GB DDR4-3600", brand:"G.Skill", price:89.99, type:"DDR4", capacity:"32GB (2x16GB)", speed:"3600MHz CL16", specs:"No RGB, 1.35V, XMP 2.0" },
+      { id:"ram005", name:"Corsair Vengeance 16GB DDR4-3200", brand:"Corsair", price:49.99, type:"DDR4", capacity:"16GB (2x8GB)", speed:"3200MHz CL16", specs:"No RGB, 1.35V, XMP 2.0" },
+      { id:"ram006", name:"TeamGroup T-Force Delta 64GB DDR5-6000", brand:"TeamGroup", price:249.99, type:"DDR5", capacity:"64GB (2x32GB)", speed:"6000MHz CL30", specs:"RGB, 1.35V, XMP 3.0" }
+    ],
+    gpu: [
+      { id:"gpu001", name:"NVIDIA GeForce RTX 4090 24GB", brand:"NVIDIA", price:1599.99, tdp:450, vram:"24GB GDDR6X", specs:"16384 CUDA Cores, 4K/8K Gaming" },
+      { id:"gpu002", name:"NVIDIA GeForce RTX 4080 16GB", brand:"NVIDIA", price:1199.99, tdp:320, vram:"16GB GDDR6X", specs:"9728 CUDA Cores, 4K Gaming" },
+      { id:"gpu003", name:"NVIDIA GeForce RTX 4070 Ti 12GB", brand:"NVIDIA", price:799.99, tdp:285, vram:"12GB GDDR6X", specs:"7680 CUDA Cores, 1440p/4K" },
+      { id:"gpu004", name:"NVIDIA GeForce RTX 4070 12GB", brand:"NVIDIA", price:599.99, tdp:200, vram:"12GB GDDR6X", specs:"5888 CUDA Cores, 1440p Gaming" },
+      { id:"gpu005", name:"NVIDIA GeForce RTX 4060 Ti 8GB", brand:"NVIDIA", price:399.99, tdp:165, vram:"8GB GDDR6", specs:"4352 CUDA Cores, 1080p/1440p" },
+      { id:"gpu006", name:"AMD Radeon RX 7900 XTX 24GB", brand:"AMD", price:999.99, tdp:355, vram:"24GB GDDR6", specs:"12288 Shaders, 4K Gaming, FSR 3" },
+      { id:"gpu007", name:"AMD Radeon RX 7800 XT 16GB", brand:"AMD", price:499.99, tdp:263, vram:"16GB GDDR6", specs:"3840 Shaders, 1440p Gaming, FSR 3" },
+      { id:"gpu008", name:"AMD Radeon RX 7600 8GB", brand:"AMD", price:269.99, tdp:165, vram:"8GB GDDR6", specs:"2048 Shaders, 1080p Gaming, FSR 3" }
+    ],
+    storage_primary: [
+      { id:"ssd001", name:"Samsung 990 Pro 2TB NVMe PCIe 4.0", brand:"Samsung", price:179.99, capacity:"2TB", type:"NVMe PCIe 4.0", speed:"7450MB/s Read", specs:"M.2 2280" },
+      { id:"ssd002", name:"WD Black SN850X 1TB NVMe PCIe 4.0", brand:"WD", price:99.99, capacity:"1TB", type:"NVMe PCIe 4.0", speed:"7300MB/s Read", specs:"M.2 2280" },
+      { id:"ssd003", name:"Seagate FireCuda 530 1TB NVMe PCIe 4.0", brand:"Seagate", price:109.99, capacity:"1TB", type:"NVMe PCIe 4.0", speed:"7300MB/s Read", specs:"M.2 2280" },
+      { id:"ssd004", name:"Crucial P3 500GB NVMe PCIe 3.0", brand:"Crucial", price:44.99, capacity:"500GB", type:"NVMe PCIe 3.0", speed:"3500MB/s Read", specs:"M.2 2280, Budget" },
+      { id:"ssd005", name:"Samsung 870 EVO 1TB SATA SSD", brand:"Samsung", price:89.99, capacity:"1TB", type:"SATA SSD", speed:"560MB/s Read", specs:"2.5-inch" }
+    ],
+    storage_secondary: [
+      { id:"hdd001", name:"Seagate Barracuda 4TB HDD", brand:"Seagate", price:79.99, capacity:"4TB", type:"HDD 7200RPM", speed:"210MB/s", specs:"3.5-inch, SATA" },
+      { id:"hdd002", name:"WD Blue 2TB HDD", brand:"WD", price:54.99, capacity:"2TB", type:"HDD 7200RPM", speed:"180MB/s", specs:"3.5-inch, SATA" },
+      { id:"ssd006", name:"Samsung 870 EVO 2TB SATA SSD", brand:"Samsung", price:149.99, capacity:"2TB", type:"SATA SSD", speed:"560MB/s Read", specs:"2.5-inch" },
+      { id:"ssd007", name:"WD Black SN850X 2TB NVMe PCIe 4.0", brand:"WD", price:179.99, capacity:"2TB", type:"NVMe PCIe 4.0", speed:"7300MB/s Read", specs:"M.2 2280" }
+    ],
+    psu: [
+      { id:"psu001", name:"Seasonic Prime TX-1000", brand:"Seasonic", price:249.99, wattage:1000, rating:"80+ Titanium", modular:"Fully Modular", specs:"10-Year Warranty" },
+      { id:"psu002", name:"Corsair RM1000x", brand:"Corsair", price:179.99, wattage:1000, rating:"80+ Gold", modular:"Fully Modular", specs:"10-Year Warranty" },
+      { id:"psu003", name:"EVGA SuperNOVA 850 G6", brand:"EVGA", price:149.99, wattage:850, rating:"80+ Gold", modular:"Fully Modular", specs:"10-Year Warranty" },
+      { id:"psu004", name:"be quiet! Straight Power 11 750W", brand:"be quiet!", price:129.99, wattage:750, rating:"80+ Platinum", modular:"Fully Modular", specs:"5-Year Warranty" },
+      { id:"psu005", name:"Corsair CV650", brand:"Corsair", price:69.99, wattage:650, rating:"80+ Bronze", modular:"Non-Modular", specs:"3-Year Warranty" },
+      { id:"psu006", name:"Thermaltake Smart 500W", brand:"Thermaltake", price:44.99, wattage:500, rating:"80+ Bronze", modular:"Non-Modular", specs:"3-Year Warranty" }
+    ],
+    case: [
+      { id:"case001", name:"Lian Li PC-O11D XL ROG", brand:"Lian Li", price:189.99, formFactor:"Full Tower", specs:"Dual Chamber, 420mm Radiator", color:"Black" },
+      { id:"case002", name:"NZXT H7 Flow", brand:"NZXT", price:129.99, formFactor:"Mid Tower", specs:"Mesh Front, 360mm Radiator", color:"Black" },
+      { id:"case003", name:"Corsair 4000D Airflow", brand:"Corsair", price:94.99, formFactor:"Mid Tower", specs:"High Airflow, 2x 120mm Fans", color:"Black" },
+      { id:"case004", name:"Fractal Design Meshify 2", brand:"Fractal", price:139.99, formFactor:"Mid Tower", specs:"Mesh Panel, 3x 120mm Fans", color:"Black" },
+      { id:"case005", name:"Phanteks Eclipse P400A", brand:"Phanteks", price:79.99, formFactor:"Mid Tower", specs:"Tempered Glass, D-RGB", color:"Black" },
+      { id:"case006", name:"Fractal Node 304", brand:"Fractal", price:99.99, formFactor:"Mini-ITX", specs:"Compact, 6x HDD Bays", color:"Black" }
+    ],
+    cooler: [
+      { id:"cool001", name:"NZXT Kraken Z73 360mm AIO", brand:"NZXT", price:249.99, type:"AIO Liquid", size:"360mm", tdpSupport:300, specs:"LCD Display, 3x 120mm Fans" },
+      { id:"cool002", name:"Corsair iCUE H150i Elite 360mm AIO", brand:"Corsair", price:199.99, type:"AIO Liquid", size:"360mm", tdpSupport:300, specs:"RGB, 3x 120mm Fans" },
+      { id:"cool003", name:"be quiet! Dark Rock Pro 4", brand:"be quiet!", price:89.99, type:"Air Cooler", size:"Dual Tower", tdpSupport:250, specs:"Silent Wings Fans, 250W TDP" },
+      { id:"cool004", name:"Noctua NH-D15", brand:"Noctua", price:99.99, type:"Air Cooler", size:"Dual Tower", tdpSupport:250, specs:"Best Air Cooler, 250W TDP" },
+      { id:"cool005", name:"Cooler Master Hyper 212 Black", brand:"Cooler Master", price:34.99, type:"Air Cooler", size:"Single Tower", tdpSupport:150, specs:"120mm Fan, Budget Pick" },
+      { id:"cool006", name:"Arctic Liquid Freezer II 240mm", brand:"Arctic", price:79.99, type:"AIO Liquid", size:"240mm", tdpSupport:250, specs:"Best Value AIO" }
+    ],
+    case_fans: [
+      { id:"fan001", name:"Corsair LL120 RGB 3-Pack 120mm", brand:"Corsair", price:79.99, size:"120mm", specs:"RGB, 1500 RPM, 3-Pack" },
+      { id:"fan002", name:"Noctua NF-A12x25 120mm", brand:"Noctua", price:29.99, size:"120mm", specs:"Premium, Silent, 2000 RPM" },
+      { id:"fan003", name:"be quiet! Silent Wings 4 140mm 3-Pack", brand:"be quiet!", price:59.99, size:"140mm", specs:"Silent, 1600 RPM, 3-Pack" },
+      { id:"fan004", name:"Lian Li Uni Fan SL120 3-Pack", brand:"Lian Li", price:69.99, size:"120mm", specs:"ARGB Daisy Chain, 3-Pack" }
+    ],
+    os: [
+      { id:"os001", name:"Windows 11 Home", brand:"Microsoft", price:139.99, specs:"Digital License, 64-bit" },
+      { id:"os002", name:"Windows 11 Pro", brand:"Microsoft", price:199.99, specs:"Digital License, 64-bit, Business" },
+      { id:"os003", name:"No OS (Bring Your Own)", brand:"—", price:0, specs:"Install your own OS" }
+    ],
+    monitor: [
+      { id:"mon001", name:"LG 27GP950-B 27\" 4K 160Hz Nano IPS", brand:"LG", price:699.99, size:"27\"", resolution:"4K UHD", refreshRate:"160Hz", panel:"Nano IPS", specs:"G-Sync, FreeSync" },
+      { id:"mon002", name:"Samsung Odyssey G7 27\" 1440p 240Hz", brand:"Samsung", price:499.99, size:"27\"", resolution:"1440p QHD", refreshRate:"240Hz", panel:"VA Curved", specs:"G-Sync Compatible" },
+      { id:"mon003", name:"ASUS ROG Swift PG279QM 27\" 1440p 240Hz", brand:"ASUS", price:599.99, size:"27\"", resolution:"1440p QHD", refreshRate:"240Hz", panel:"IPS", specs:"G-Sync, HDR400" },
+      { id:"mon004", name:"BenQ MOBIUZ EX2510S 24.5\" 1080p 165Hz", brand:"BenQ", price:249.99, size:"24.5\"", resolution:"1080p FHD", refreshRate:"165Hz", panel:"IPS", specs:"FreeSync, HDRi" },
+      { id:"mon005", name:"Dell S2722DGM 27\" 1440p 165Hz", brand:"Dell", price:279.99, size:"27\"", resolution:"1440p QHD", refreshRate:"165Hz", panel:"VA Curved", specs:"FreeSync Premium" }
+    ],
+    keyboard: [
+      { id:"kb001", name:"Corsair K100 RGB Mechanical", brand:"Corsair", price:229.99, type:"Mechanical", switches:"Cherry MX Speed", specs:"Per-Key RGB, Wired" },
+      { id:"kb002", name:"Logitech G Pro X TKL Wireless", brand:"Logitech", price:159.99, type:"Mechanical", switches:"GX Red Linear", specs:"Wireless, TKL, RGB" },
+      { id:"kb003", name:"Razer BlackWidow V3 TKL", brand:"Razer", price:99.99, type:"Mechanical", switches:"Razer Green Clicky", specs:"TKL, RGB, Wired" },
+      { id:"kb004", name:"SteelSeries Apex Pro TKL", brand:"SteelSeries", price:179.99, type:"Mechanical", switches:"Adjustable Actuation", specs:"OLED Display, RGB" },
+      { id:"kb005", name:"Keychron K2 Pro Wireless", brand:"Keychron", price:99.99, type:"Mechanical", switches:"Gateron G Pro Brown", specs:"Wireless, Compact 75%" }
+    ],
+    mouse: [
+      { id:"ms001", name:"Logitech G Pro X Superlight 2", brand:"Logitech", price:159.99, dpi:"32000 DPI", weight:"60g", specs:"Wireless, HERO 25K Sensor" },
+      { id:"ms002", name:"Razer DeathAdder V3 Pro", brand:"Razer", price:149.99, dpi:"30000 DPI", weight:"64g", specs:"Wireless, Focus Pro 30K Sensor" },
+      { id:"ms003", name:"SteelSeries Rival 600", brand:"SteelSeries", price:79.99, dpi:"12000 DPI", weight:"96g", specs:"Dual Sensor, Wired, RGB" },
+      { id:"ms004", name:"Corsair Scimitar Elite RGB", brand:"Corsair", price:99.99, dpi:"18000 DPI", weight:"132g", specs:"12-Button, MMO, RGB" },
+      { id:"ms005", name:"Glorious Model O Wireless", brand:"Glorious", price:79.99, dpi:"19000 DPI", weight:"69g", specs:"Wireless, Honeycomb Shell" }
+    ],
+    headset: [
+      { id:"hs001", name:"SteelSeries Arctis Nova Pro Wireless", brand:"SteelSeries", price:349.99, type:"Over-Ear", connectivity:"Wireless", specs:"Dual Wireless, ANC, 40hr Battery" },
+      { id:"hs002", name:"Corsair HS80 RGB Wireless", brand:"Corsair", price:139.99, type:"Over-Ear", connectivity:"Wireless", specs:"Dolby Atmos, 20hr Battery" },
+      { id:"hs003", name:"Razer BlackShark V2 Pro", brand:"Razer", price:179.99, type:"Over-Ear", connectivity:"Wireless", specs:"THX Spatial Audio, 70hr Battery" },
+      { id:"hs004", name:"HyperX Cloud Alpha Wireless", brand:"HyperX", price:199.99, type:"Over-Ear", connectivity:"Wireless", specs:"300hr Battery Life, 7.1 Surround" }
+    ],
+    mousepad: [
+      { id:"mp001", name:"SteelSeries QcK Heavy XXL", brand:"SteelSeries", price:39.99, size:"900x300mm", type:"Cloth", specs:"Micro-woven, Non-slip Base" },
+      { id:"mp002", name:"Logitech G840 XL", brand:"Logitech", price:49.99, size:"900x400mm", type:"Cloth", specs:"5mm Thick, Desk Mat" },
+      { id:"mp003", name:"Corsair MM700 RGB Extended", brand:"Corsair", price:59.99, size:"930x400mm", type:"Cloth RGB", specs:"Dynamic RGB Lighting, USB Hub" },
+      { id:"mp004", name:"Glorious XXL Heavy", brand:"Glorious", price:34.99, size:"914x406mm", type:"Cloth", specs:"Stitched Edges, 5mm Thick" }
+    ],
+    webcam: [
+      { id:"wc001", name:"Logitech Brio 4K", brand:"Logitech", price:199.99, resolution:"4K/30fps", specs:"HDR, RightLight 3, USB-C" },
+      { id:"wc002", name:"Razer Kiyo Pro", brand:"Razer", price:129.99, resolution:"1080p/60fps", specs:"Adaptive Light Sensor, USB" },
+      { id:"wc003", name:"Elgato Facecam", brand:"Elgato", price:149.99, resolution:"1080p/60fps", specs:"Sony Sensor, No Auto-Compression" }
+    ],
+    ups: [
+      { id:"ups001", name:"APC Back-UPS Pro 1500VA", brand:"APC", price:219.99, capacity:"1500VA/900W", specs:"8 Outlets, USB Charging, LCD" },
+      { id:"ups002", name:"CyberPower CP1500PFCLCD 1500VA", brand:"CyberPower", price:189.99, capacity:"1500VA/1000W", specs:"Pure Sine Wave, LCD, 12 Outlets" },
+      { id:"ups003", name:"Belkin 8-Outlet Surge Protector", brand:"Belkin", price:29.99, capacity:"3940 Joules", specs:"8 Outlets, 6ft Cord, Surge Only" }
+    ]
+  }
+};
+
+/* ═══════════════════════════════ SVG IMAGES ═══════════════════════════════ */
+const SVG_IMAGES = {
+  // Prebuilt card SVGs
+  pb_gaming: `<svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0a0a1a"/><stop offset="100%" style="stop-color:#0d1a2e"/></linearGradient><radialGradient id="glow1" cx="60%" cy="40%"><stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.15"/><stop offset="100%" style="stop-color:transparent"/></radialGradient></defs><rect width="400" height="225" fill="url(#g1)"/><rect width="400" height="225" fill="url(#glow1)"/><rect x="20" y="20" width="60" height="40" rx="4" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.3"/><rect x="22" y="22" width="56" height="36" rx="3" fill="#00d4ff" fill-opacity="0.05"/><rect x="30" y="30" width="40" height="10" rx="2" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.4"/><rect x="33" y="33" width="8" height="4" rx="1" fill="#00d4ff" fill-opacity="0.6"/><rect x="43" y="33" width="8" height="4" rx="1" fill="#00d4ff" fill-opacity="0.6"/><rect x="53" y="33" width="8" height="4" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="100" y="60" width="200" height="120" rx="8" fill="none" stroke="#1e2035" stroke-width="1.5"/><rect x="102" y="62" width="196" height="116" rx="7" fill="#0d0e17"/><rect x="120" y="80" width="160" height="80" rx="4" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/><rect x="122" y="82" width="156" height="76" rx="3" fill="#00d4ff" fill-opacity="0.04"/><circle cx="200" cy="120" r="20" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/><circle cx="200" cy="120" r="8" fill="#00d4ff" fill-opacity="0.3"/><circle cx="200" cy="120" r="3" fill="#00d4ff"/><line x1="200" y1="100" x2="200" y2="82" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><line x1="200" y1="140" x2="200" y2="158" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><line x1="180" y1="120" x2="122" y2="120" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><line x1="220" y1="120" x2="278" y2="120" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><rect x="140" y="95" width="30" height="20" rx="2" fill="none" stroke="#7c5cfc" stroke-width="1" opacity="0.4"/><rect x="230" y="95" width="30" height="20" rx="2" fill="none" stroke="#7c5cfc" stroke-width="1" opacity="0.4"/><text x="200" y="198" text-anchor="middle" fill="#00d4ff" font-size="11" font-family="monospace" opacity="0.5">GAMING PC</text></svg>`,
+  pb_budget: `<svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0a100a"/><stop offset="100%" style="stop-color:#0a1a10"/></linearGradient><radialGradient id="glow2" cx="40%" cy="50%"><stop offset="0%" style="stop-color:#00ff9d;stop-opacity:0.1"/><stop offset="100%" style="stop-color:transparent"/></radialGradient></defs><rect width="400" height="225" fill="url(#g2)"/><rect width="400" height="225" fill="url(#glow2)"/><rect x="60" y="40" width="280" height="145" rx="10" fill="none" stroke="#00ff9d" stroke-width="1.5" opacity="0.4"/><rect x="62" y="42" width="276" height="141" rx="9" fill="#00ff9d" fill-opacity="0.03"/><rect x="80" y="60" width="240" height="105" rx="6" fill="none" stroke="#00ff9d" stroke-width="1" opacity="0.25"/><circle cx="200" cy="112" r="35" fill="none" stroke="#00ff9d" stroke-width="1.5" opacity="0.35"/><circle cx="200" cy="112" r="18" fill="none" stroke="#00ff9d" stroke-width="1" opacity="0.4"/><circle cx="200" cy="112" r="5" fill="#00ff9d" fill-opacity="0.8"/><text x="200" y="185" text-anchor="middle" fill="#00ff9d" font-size="11" font-family="monospace" opacity="0.45">BUDGET BEAST</text><rect x="90" y="70" width="15" height="8" rx="1" fill="#00ff9d" fill-opacity="0.4"/><rect x="110" y="70" width="15" height="8" rx="1" fill="#00ff9d" fill-opacity="0.3"/><rect x="295" y="70" width="15" height="8" rx="1" fill="#00ff9d" fill-opacity="0.4"/><rect x="275" y="70" width="15" height="8" rx="1" fill="#00ff9d" fill-opacity="0.3"/></svg>`,
+  pb_workstation: `<svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#100a1a"/><stop offset="100%" style="stop-color:#1a0d2e"/></linearGradient><radialGradient id="glow3" cx="50%" cy="50%"><stop offset="0%" style="stop-color:#7c5cfc;stop-opacity:0.2"/><stop offset="100%" style="stop-color:transparent"/></radialGradient></defs><rect width="400" height="225" fill="url(#g3)"/><rect width="400" height="225" fill="url(#glow3)"/><rect x="50" y="30" width="300" height="165" rx="12" fill="none" stroke="#7c5cfc" stroke-width="2" opacity="0.5"/><rect x="52" y="32" width="296" height="161" rx="11" fill="#7c5cfc" fill-opacity="0.04"/><g opacity="0.5"><rect x="70" y="55" width="80" height="55" rx="4" fill="none" stroke="#7c5cfc" stroke-width="1.5"/><rect x="72" y="57" width="76" height="51" rx="3" fill="#7c5cfc" fill-opacity="0.08"/><circle cx="110" cy="82" r="14" fill="none" stroke="#7c5cfc" stroke-width="1.5"/><circle cx="110" cy="82" r="5" fill="#7c5cfc" fill-opacity="0.6"/></g><g opacity="0.5"><rect x="250" y="55" width="80" height="55" rx="4" fill="none" stroke="#7c5cfc" stroke-width="1.5"/><rect x="252" y="57" width="76" height="51" rx="3" fill="#7c5cfc" fill-opacity="0.08"/><circle cx="290" cy="82" r="14" fill="none" stroke="#7c5cfc" stroke-width="1.5"/><circle cx="290" cy="82" r="5" fill="#7c5cfc" fill-opacity="0.6"/></g><rect x="160" y="50" width="80" height="65" rx="4" fill="none" stroke="#7c5cfc" stroke-width="1.5" opacity="0.6"/><rect x="162" y="52" width="76" height="61" rx="3" fill="#7c5cfc" fill-opacity="0.1"/><circle cx="200" cy="82" r="18" fill="none" stroke="#7c5cfc" stroke-width="2" opacity="0.7"/><circle cx="200" cy="82" r="7" fill="#7c5cfc" fill-opacity="0.7"/><line x1="150" y1="82" x2="162" y2="82" stroke="#7c5cfc" stroke-width="1" opacity="0.5"/><line x1="238" y1="82" x2="250" y2="82" stroke="#7c5cfc" stroke-width="1" opacity="0.5"/><text x="200" y="195" text-anchor="middle" fill="#7c5cfc" font-size="11" font-family="monospace" opacity="0.5">WORKSTATION</text></svg>`,
+  pb_office: `<svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0a0e12"/><stop offset="100%" style="stop-color:#0d1520"/></linearGradient></defs><rect width="400" height="225" fill="url(#g4)"/><rect x="80" y="40" width="240" height="145" rx="10" fill="none" stroke="#9ca3af" stroke-width="1.5" opacity="0.3"/><rect x="82" y="42" width="236" height="141" rx="9" fill="#9ca3af" fill-opacity="0.02"/><rect x="100" y="60" width="200" height="20" rx="3" fill="none" stroke="#9ca3af" stroke-width="1" opacity="0.3"/><rect x="100" y="88" width="180" height="8" rx="2" fill="#9ca3af" fill-opacity="0.2"/><rect x="100" y="102" width="160" height="8" rx="2" fill="#9ca3af" fill-opacity="0.15"/><rect x="100" y="116" width="140" height="8" rx="2" fill="#9ca3af" fill-opacity="0.12"/><rect x="100" y="130" width="120" height="8" rx="2" fill="#9ca3af" fill-opacity="0.1"/><text x="200" y="195" text-anchor="middle" fill="#9ca3af" font-size="11" font-family="monospace" opacity="0.4">OFFICE PC</text></svg>`,
+  // Component category SVGs
+  cpu: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="90" y="30" width="100" height="100" rx="6" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.7"/><rect x="96" y="36" width="88" height="88" rx="4" fill="#00d4ff" fill-opacity="0.06"/><circle cx="140" cy="80" r="28" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.5"/><circle cx="140" cy="80" r="14" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/><circle cx="140" cy="80" r="5" fill="#00d4ff" opacity="0.9"/><line x1="90" y1="55" x2="60" y2="55" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="90" y1="65" x2="60" y2="65" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="90" y1="75" x2="60" y2="75" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="90" y1="85" x2="60" y2="85" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="90" y1="95" x2="60" y2="95" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="190" y1="55" x2="220" y2="55" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="190" y1="65" x2="220" y2="65" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="190" y1="75" x2="220" y2="75" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="190" y1="85" x2="220" y2="85" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="190" y1="95" x2="220" y2="95" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="110" y1="30" x2="110" y2="10" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="125" y1="30" x2="125" y2="10" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="140" y1="30" x2="140" y2="10" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="155" y1="30" x2="155" y2="10" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="170" y1="30" x2="170" y2="10" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="110" y1="130" x2="110" y2="150" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="125" y1="130" x2="125" y2="150" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="140" y1="130" x2="140" y2="150" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="155" y1="130" x2="155" y2="150" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><line x1="170" y1="130" x2="170" y2="150" stroke="#00d4ff" stroke-width="2" opacity="0.5"/></svg>`,
+  gpu: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="20" y="45" width="240" height="80" rx="6" fill="none" stroke="#7c5cfc" stroke-width="2" opacity="0.6"/><rect x="22" y="47" width="236" height="76" rx="5" fill="#7c5cfc" fill-opacity="0.05"/><circle cx="80" cy="85" r="22" fill="none" stroke="#7c5cfc" stroke-width="2" opacity="0.6"/><circle cx="80" cy="85" r="10" fill="none" stroke="#7c5cfc" stroke-width="1.5" opacity="0.6"/><circle cx="80" cy="85" r="4" fill="#7c5cfc" opacity="0.9"/><circle cx="150" cy="85" r="22" fill="none" stroke="#7c5cfc" stroke-width="2" opacity="0.6"/><circle cx="150" cy="85" r="10" fill="none" stroke="#7c5cfc" stroke-width="1.5" opacity="0.6"/><circle cx="150" cy="85" r="4" fill="#7c5cfc" opacity="0.9"/><circle cx="220" cy="85" r="22" fill="none" stroke="#7c5cfc" stroke-width="2" opacity="0.4"/><circle cx="220" cy="85" r="10" fill="none" stroke="#7c5cfc" stroke-width="1.5" opacity="0.4"/><rect x="20" y="125" width="200" height="8" rx="4" fill="#7c5cfc" fill-opacity="0.2"/><rect x="20" y="125" width="80" height="8" rx="4" fill="#7c5cfc" fill-opacity="0.5"/></svg>`,
+  ram: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="60" y="25" width="35" height="115" rx="3" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/><rect x="62" y="27" width="31" height="111" rx="2" fill="#00d4ff" fill-opacity="0.05"/><rect x="65" y="35" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.6"/><rect x="65" y="47" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="65" y="59" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="65" y="71" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="65" y="83" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="65" y="95" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.6"/><rect x="115" y="25" width="35" height="115" rx="3" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/><rect x="117" y="27" width="31" height="111" rx="2" fill="#00d4ff" fill-opacity="0.05"/><rect x="120" y="35" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.6"/><rect x="120" y="47" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="120" y="59" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="120" y="71" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="120" y="83" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.4"/><rect x="120" y="95" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.6"/><rect x="170" y="25" width="35" height="115" rx="3" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/><rect x="172" y="27" width="31" height="111" rx="2" fill="#00d4ff" fill-opacity="0.03"/><rect x="175" y="35" width="25" height="6" rx="1" fill="#00d4ff" fill-opacity="0.3"/></svg>`,
+  motherboard: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="20" y="15" width="240" height="130" rx="6" fill="none" stroke="#00ff9d" stroke-width="1.5" opacity="0.4"/><rect x="22" y="17" width="236" height="126" rx="5" fill="#00ff9d" fill-opacity="0.02"/><rect x="30" y="25" width="55" height="55" rx="4" fill="none" stroke="#00ff9d" stroke-width="1.5" opacity="0.5"/><circle cx="57" cy="52" r="16" fill="none" stroke="#00ff9d" stroke-width="1.5" opacity="0.6"/><circle cx="57" cy="52" r="6" fill="#00ff9d" fill-opacity="0.5"/><rect x="100" y="25" width="30" height="18" rx="2" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5"/><rect x="135" y="25" width="30" height="18" rx="2" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.4"/><rect x="30" y="95" width="220" height="30" rx="3" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.4"/><rect x="33" y="98" width="45" height="24" rx="2" fill="#00d4ff" fill-opacity="0.1"/><rect x="83" y="98" width="45" height="24" rx="2" fill="#00d4ff" fill-opacity="0.08"/><rect x="133" y="98" width="45" height="24" rx="2" fill="#00d4ff" fill-opacity="0.06"/><rect x="183" y="98" width="45" height="24" rx="2" fill="#00d4ff" fill-opacity="0.04"/><rect x="200" y="25" width="50" height="60" rx="3" fill="none" stroke="#7c5cfc" stroke-width="1" opacity="0.4"/></svg>`,
+  storage_primary: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="50" y="45" width="180" height="70" rx="5" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/><rect x="52" y="47" width="176" height="66" rx="4" fill="#00d4ff" fill-opacity="0.04"/><rect x="65" y="58" width="80" height="10" rx="2" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5"/><rect x="67" y="60" width="50" height="6" rx="1" fill="#00d4ff" fill-opacity="0.5"/><rect x="65" y="76" width="60" height="8" rx="1" fill="#00d4ff" fill-opacity="0.2"/><rect x="65" y="90" width="50" height="6" rx="1" fill="#00d4ff" fill-opacity="0.15"/><rect x="185" y="60" width="30" height="10" rx="2" fill="#00d4ff" fill-opacity="0.3"/><rect x="185" y="78" width="30" height="10" rx="2" fill="#00d4ff" fill-opacity="0.2"/><rect x="50" y="120" width="180" height="4" rx="2" fill="#00d4ff" fill-opacity="0.15"/></svg>`,
+  psu: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="40" y="25" width="150" height="110" rx="6" fill="none" stroke="#ffb800" stroke-width="1.5" opacity="0.5"/><rect x="42" y="27" width="146" height="106" rx="5" fill="#ffb800" fill-opacity="0.04"/><rect x="55" y="40" width="60" height="60" rx="30" fill="none" stroke="#ffb800" stroke-width="2" opacity="0.5"/><line x1="85" y1="55" x2="85" y2="85" stroke="#ffb800" stroke-width="2.5" opacity="0.7"/><line x1="70" y1="70" x2="100" y2="70" stroke="#ffb800" stroke-width="2.5" opacity="0.7"/><rect x="200" y="35" width="12" height="90" rx="2" fill="none" stroke="#ffb800" stroke-width="1" opacity="0.4"/><rect x="218" y="35" width="12" height="90" rx="2" fill="none" stroke="#ffb800" stroke-width="1" opacity="0.4"/><rect x="236" y="35" width="12" height="90" rx="2" fill="none" stroke="#ffb800" stroke-width="1" opacity="0.4"/></svg>`,
+  case: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="70" y="15" width="100" height="130" rx="6" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.5"/><rect x="72" y="17" width="96" height="126" rx="5" fill="#00d4ff" fill-opacity="0.04"/><rect x="78" y="25" width="84" height="50" rx="3" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><circle cx="88" cy="40" r="10" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.5"/><rect x="78" y="82" width="84" height="20" rx="2" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><rect x="80" y="84" width="80" height="16" rx="1" fill="#00d4ff" fill-opacity="0.06"/><rect x="78" y="108" width="40" height="5" rx="2" fill="#00d4ff" fill-opacity="0.2"/><rect x="78" y="118" width="40" height="5" rx="2" fill="#00d4ff" fill-opacity="0.15"/><rect x="78" y="128" width="40" height="5" rx="2" fill="#00d4ff" fill-opacity="0.1"/><rect x="200" y="30" width="50" height="100" rx="4" fill="none" stroke="#1e2035" stroke-width="1" opacity="0.5"/><rect x="202" y="32" width="46" height="96" rx="3" fill="#1e2035" fill-opacity="0.3"/></svg>`,
+  cooler: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><circle cx="140" cy="80" r="60" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/><circle cx="140" cy="80" r="45" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.5"/><circle cx="140" cy="80" r="20" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.7"/><circle cx="140" cy="80" r="7" fill="#00d4ff" fill-opacity="0.8"/><path d="M140 35 Q165 57 140 80 Q115 57 140 35Z" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-width="1" opacity="0.5"/><path d="M185 57 Q163 82 140 80 Q163 57 185 57Z" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-width="1" opacity="0.5"/><path d="M185 103 Q140 103 140 80 Q163 103 185 103Z" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-width="1" opacity="0.5"/><path d="M140 125 Q115 103 140 80 Q165 103 140 125Z" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-width="1" opacity="0.5"/><path d="M95 103 Q117 78 140 80 Q117 103 95 103Z" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-width="1" opacity="0.5"/><path d="M95 57 Q140 57 140 80 Q117 57 95 57Z" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-width="1" opacity="0.5"/></svg>`,
+  monitor: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="20" y="15" width="240" height="115" rx="8" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/><rect x="22" y="17" width="236" height="111" rx="7" fill="#00d4ff" fill-opacity="0.04"/><rect x="30" y="25" width="220" height="95" rx="4" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><rect x="32" y="27" width="216" height="91" rx="3" fill="#00d4ff" fill-opacity="0.03"/><rect x="50" y="45" width="180" height="55" rx="2" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.2"/><line x1="50" y1="60" x2="230" y2="60" stroke="#00d4ff" stroke-width="1" opacity="0.15"/><line x1="50" y1="75" x2="230" y2="75" stroke="#00d4ff" stroke-width="1" opacity="0.15"/><rect x="120" y="130" width="40" height="20" rx="2" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><rect x="105" y="148" width="70" height="6" rx="3" fill="#00d4ff" fill-opacity="0.2"/></svg>`,
+  keyboard: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="15" y="45" width="250" height="80" rx="8" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.5"/><rect x="17" y="47" width="246" height="76" rx="7" fill="#00d4ff" fill-opacity="0.04"/><g fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.4"><rect x="25" y="57" width="14" height="12" rx="2"/><rect x="43" y="57" width="14" height="12" rx="2"/><rect x="61" y="57" width="14" height="12" rx="2"/><rect x="79" y="57" width="14" height="12" rx="2"/><rect x="97" y="57" width="14" height="12" rx="2"/><rect x="115" y="57" width="14" height="12" rx="2"/><rect x="133" y="57" width="14" height="12" rx="2"/><rect x="151" y="57" width="14" height="12" rx="2"/><rect x="169" y="57" width="14" height="12" rx="2"/><rect x="187" y="57" width="14" height="12" rx="2"/><rect x="205" y="57" width="14" height="12" rx="2"/><rect x="223" y="57" width="32" height="12" rx="2"/><rect x="25" y="74" width="22" height="12" rx="2"/><rect x="51" y="74" width="14" height="12" rx="2"/><rect x="69" y="74" width="14" height="12" rx="2"/><rect x="87" y="74" width="14" height="12" rx="2"/><rect x="105" y="74" width="14" height="12" rx="2"/><rect x="123" y="74" width="14" height="12" rx="2"/><rect x="141" y="74" width="14" height="12" rx="2"/><rect x="159" y="74" width="14" height="12" rx="2"/><rect x="177" y="74" width="14" height="12" rx="2"/><rect x="195" y="74" width="14" height="12" rx="2"/><rect x="213" y="74" width="42" height="12" rx="2"/><rect x="25" y="91" width="100" height="12" rx="2"/><rect x="129" y="91" width="126" height="12" rx="2"/></g></svg>`,
+  mouse: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><ellipse cx="140" cy="90" rx="45" ry="65" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.5" transform="translate(0,-10)"/><ellipse cx="140" cy="80" rx="43" ry="63" fill="#00d4ff" fill-opacity="0.04"/><line x1="140" y1="30" x2="140" y2="80" stroke="#00d4ff" stroke-width="1.5" opacity="0.5"/><line x1="96" y1="55" x2="184" y2="55" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><circle cx="140" cy="47" r="5" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/><circle cx="140" cy="47" r="2" fill="#00d4ff" opacity="0.8"/></svg>`,
+  headset: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><path d="M80 100 Q80 40 140 40 Q200 40 200 100" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.5"/><rect x="65" y="95" width="30" height="40" rx="10" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/><rect x="67" y="97" width="26" height="36" rx="9" fill="#00d4ff" fill-opacity="0.1"/><rect x="185" y="95" width="30" height="40" rx="10" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/><rect x="187" y="97" width="26" height="36" rx="9" fill="#00d4ff" fill-opacity="0.1"/><line x1="80" y1="135" x2="80" y2="145" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/><path d="M65 130 Q65 155 90 155" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/></svg>`,
+  mousepad: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="20" y="30" width="240" height="100" rx="8" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/><rect x="22" y="32" width="236" height="96" rx="7" fill="#00d4ff" fill-opacity="0.04"/><rect x="30" y="38" width="220" height="84" rx="4" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.2"/><line x1="20" y1="80" x2="260" y2="80" stroke="#00d4ff" stroke-width="1" opacity="0.1"/><line x1="140" y1="30" x2="140" y2="130" stroke="#00d4ff" stroke-width="1" opacity="0.1"/></svg>`,
+  webcam: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="80" y="20" width="120" height="80" rx="12" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.5"/><rect x="82" y="22" width="116" height="76" rx="11" fill="#00d4ff" fill-opacity="0.05"/><circle cx="140" cy="60" r="25" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/><circle cx="140" cy="60" r="16" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/><circle cx="140" cy="60" r="8" fill="#00d4ff" fill-opacity="0.5"/><circle cx="140" cy="60" r="3" fill="#00d4ff"/><rect x="125" y="100" width="30" height="20" rx="4" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/><rect x="110" y="118" width="60" height="8" rx="4" fill="#00d4ff" fill-opacity="0.2"/><rect x="90" y="126" width="100" height="14" rx="4" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.3"/></svg>`,
+  ups: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="55" y="25" width="170" height="110" rx="8" fill="none" stroke="#ffb800" stroke-width="2" opacity="0.5"/><rect x="57" y="27" width="166" height="106" rx="7" fill="#ffb800" fill-opacity="0.04"/><line x1="115" y1="55" x2="140" y2="85" stroke="#ffb800" stroke-width="3" opacity="0.8"/><line x1="140" y1="55" x2="140" y2="85" stroke="#ffb800" stroke-width="3" opacity="0.4"/><line x1="140" y1="85" x2="165" y2="55" stroke="#ffb800" stroke-width="3" opacity="0.8"/><rect x="75" y="100" width="130" height="20" rx="4" fill="none" stroke="#ffb800" stroke-width="1" opacity="0.3"/><rect x="77" y="102" width="90" height="16" rx="3" fill="#ffb800" fill-opacity="0.3"/></svg>`,
+  case_fans: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><circle cx="140" cy="80" r="60" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.3"/><circle cx="140" cy="80" r="50" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.3"/><circle cx="140" cy="80" r="15" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/><circle cx="140" cy="80" r="5" fill="#00d4ff" opacity="0.8"/><path d="M140 30 Q160 55 140 80 Q120 55 140 30Z" fill="#00d4ff" fill-opacity="0.2"/><path d="M190 55 Q165 80 140 80 Q165 55 190 55Z" fill="#00d4ff" fill-opacity="0.2"/><path d="M190 105 Q140 105 140 80 Q165 105 190 105Z" fill="#00d4ff" fill-opacity="0.2"/><path d="M140 130 Q120 105 140 80 Q160 105 140 130Z" fill="#00d4ff" fill-opacity="0.2"/><path d="M90 105 Q115 80 140 80 Q115 105 90 105Z" fill="#00d4ff" fill-opacity="0.2"/><path d="M90 55 Q140 55 140 80 Q115 55 90 55Z" fill="#00d4ff" fill-opacity="0.2"/></svg>`,
+  os: `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="160" fill="#0d0e17"/><rect x="50" y="30" width="180" height="100" rx="6" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.4"/><rect x="52" y="32" width="176" height="96" rx="5" fill="#00d4ff" fill-opacity="0.04"/><rect x="60" y="50" width="80" height="8" rx="2" fill="#00d4ff" fill-opacity="0.4"/><rect x="60" y="64" width="160" height="6" rx="2" fill="#00d4ff" fill-opacity="0.2"/><rect x="60" y="76" width="140" height="6" rx="2" fill="#00d4ff" fill-opacity="0.15"/><rect x="60" y="88" width="120" height="6" rx="2" fill="#00d4ff" fill-opacity="0.1"/><rect x="180" y="95" width="40" height="20" rx="4" fill="#00d4ff" fill-opacity="0.2" stroke="#00d4ff" stroke-width="1" opacity="0.5"/></svg>`
+};
+
+function getComponentSVG(category) {
+  return SVG_IMAGES[category] || SVG_IMAGES['cpu'];
+}
+
+function getPrebuiltSVG(tier) {
+  if (tier === 'gaming') return SVG_IMAGES.pb_gaming;
+  if (tier === 'workstation') return SVG_IMAGES.pb_workstation;
+  if (tier === 'budget') return SVG_IMAGES.pb_budget;
+  if (tier === 'office') return SVG_IMAGES.pb_office;
+  return SVG_IMAGES.pb_gaming;
+}
+
+const PREBUILT_IMAGE_MAP = {
+  'Striker X Gaming Pro': 'PreBuilts/Striker X Gaming Pro.png',
+  'Nova Budget Beast': 'PreBuilts/Nova Budget Beast.png',
+  'Titan Workstation Ultra': 'PreBuilts/Titan Workstation Ultra.png',
+  'Phantom Mid-Range': 'PreBuilts/Phantom Mid-Range.png',
+  'Office Ace Pro': 'PreBuilts/Office Ace Pro.png',
+  'Apex 4K Creator': 'PreBuilts/Apex 4K Creator.png'
+};
+
+const COMPONENT_IMAGE_MAP = {
+  cpu: {
+    'Intel Core i9-14900K': 'Pictures/CPU/Intel_Core_i9-14900K.png',
+    'Intel Core i7-14700K': 'Pictures/CPU/intel i7 14700k.png',
+    'Intel Core i5-13600K': 'Pictures/CPU/Intel_Core_i5-13600K.png',
+    'Intel Core i5-13400': 'Pictures/CPU/intel i5 13400.png',
+    'AMD Ryzen 9 7950X': 'Pictures/CPU/AMD Ryzen 9 7950x.png',
+    'AMD Ryzen 9 7900X': 'Pictures/CPU/AMD ryzen 9 7900x.png',
+    'AMD Ryzen 7 7700X': 'Pictures/CPU/AMD ryzen 7 7700x.png',
+    'AMD Ryzen 5 7600X': 'Pictures/CPU/AMD ryzen 5 7600x.png',
+    'AMD Ryzen 5 7600': 'Pictures/CPU/AMD Ryzen 5 7600.png'
+  },
+  motherboard: {
+    'ASUS ROG Maximus Z790 Hero': 'Pictures/Motherboard/ASUS ROG Maximus Z790 Hero.png',
+    'MSI MEG Z790 ACE': 'Pictures/Motherboard/MSI MEG Z790 ACE.png',
+    'Gigabyte Z790 AORUS Elite AX': 'Pictures/Motherboard/Gigabyte Z790 AORUS Elite AX.png',
+    'ASRock B760M Pro RS/D4': 'Pictures/Motherboard/ASRock B760M Pro RSD4.png',
+    'ASUS ROG Crosshair X670E Hero': 'Pictures/Motherboard/ASUS ROG Crosshair x670e hero.png',
+    'MSI MEG X670E ACE': 'Pictures/Motherboard/MSI MEG x670E ace.png',
+    'Gigabyte B650 AORUS Elite AX': 'Pictures/Motherboard/Gigabyte B650 AORUS Elite AX.png',
+    'MSI PRO B650-P WiFi': 'Pictures/Motherboard/MSI PRO B650-P WiFi.png'
+  },
+  ram: {
+    'Corsair Dominator Platinum 32GB DDR5-6000': 'Pictures/RAM/Corsair Dominator Platinum 32GB DDR5-6000.png',
+    'G.Skill Trident Z5 RGB 32GB DDR5-6400': 'Pictures/RAM/G.Skill Trident Z5 RGB 32GB DDR5-6400.png',
+    'Kingston Fury Beast 16GB DDR5-5200': 'Pictures/RAM/Kingston Fury Beast 16GB DDR5-5200.png',
+    'G.Skill Ripjaws V 32GB DDR4-3600': 'Pictures/RAM/G.Skill Ripjaws V 32GB DDR4-3600.png',
+    'Corsair Vengeance 16GB DDR4-3200': 'Pictures/RAM/Corsair Vengeance 16GB DDR4-3200.png',
+    'TeamGroup T-Force Delta 64GB DDR5-6000': 'Pictures/RAM/TeamGroup T-Force Delta 64GB DDR5-6000.png'
+  },
+  gpu: {
+    'NVIDIA GeForce RTX 4090 24GB': 'Pictures/GPU/NVIDIA GeForce RTX 4090 24GB.png',
+    'NVIDIA GeForce RTX 4080 16GB': 'Pictures/GPU/NVIDIA GeForce RTX 4080 16GB.png',
+    'NVIDIA GeForce RTX 4070 Ti 12GB': 'Pictures/GPU/NVIDIA GeForce RTX 4070 Ti 12GB.png',
+    'NVIDIA GeForce RTX 4070 12GB': 'Pictures/GPU/NVIDIA GeForce RTX 4070 12GB.png',
+    'NVIDIA GeForce RTX 4060 Ti 8GB': 'Pictures/GPU/NVIDIA GeForce RTX 4060 Ti 8GB.png',
+    'AMD Radeon RX 7900 XTX 24GB': 'Pictures/GPU/AMD Radeon RX 7900 XTX 24GB.png',
+    'AMD Radeon RX 7800 XT 16GB': 'Pictures/GPU/AMD Radeon RX 7800 XT 16GB.png',
+    'AMD Radeon RX 7600 8GB': 'Pictures/GPU/AMD Radeon RX 7600 8GB.png'
+  },
+  storage_primary: {
+    'Samsung 990 Pro 2TB NVMe PCIe 4.0': 'Pictures/Storage/Samsung 990 Pro 2TB NVMe PCIe 4.0.png',
+    'WD Black SN850X 1TB NVMe PCIe 4.0': 'Pictures/Storage/WD Black SN850X 1TB NVMe PCIe 4.0.png',
+    'Seagate FireCuda 530 1TB NVMe PCIe 4.0': 'Pictures/Storage/Seagate FireCuda 530 1TB NVMe PCIe 4.0.png',
+    'Crucial P3 500GB NVMe PCIe 3.0': 'Pictures/Storage/Crucial P3 500GB NVMe PCIe 3.0.png',
+    'Samsung 870 EVO 1TB SATA SSD': 'Pictures/Storage/Samsung 870 EVO 1TB SATA SSD.png'
+  },
+  psu: {
+    'Seasonic Prime TX-1000': 'Pictures/PSU/Seasonic Prime TX-1000.png',
+    'Corsair RM1000x': 'Pictures/PSU/Corsair RM1000x.png',
+    'EVGA SuperNOVA 850 G6': 'Pictures/PSU/EVGA SuperNOVA 850 G6.png',
+    'be quiet! Straight Power 11 750W': 'Pictures/PSU/be quiet! Straight Power 11 750W.png',
+    'Corsair CV650': 'Pictures/PSU/Corsair CV650.png',
+    'Thermaltake Smart 500W': 'Pictures/PSU/Thermaltake Smart 500W.png'
+  },
+  case: {
+    'Lian Li PC-O11D XL ROG': 'Pictures/Case/Lian Li PC-O11D XL ROG.png',
+    'NZXT H7 Flow': 'Pictures/Case/NZXT H7 Flow.png',
+    'Corsair 4000D Airflow': 'Pictures/Case/Corsair 4000D Airflow.png',
+    'Fractal Design Meshify 2': 'Pictures/Case/Fractal Design Meshify 2.png',
+    'Phanteks Eclipse P400A': 'Pictures/Case/Phanteks Eclipse P400A.png',
+    'Fractal Node 304': 'Pictures/Case/Fractal Node 304.png'
+  },
+  cooler: {
+    'NZXT Kraken Z73 360mm AIO': 'Pictures/Cooler/NZXT Kraken Z73 360mm AIO.png',
+    'Corsair iCUE H150i Elite 360mm AIO': 'Pictures/Cooler/Corsair iCUE H150i Elite 360mm AIO.png',
+    'be quiet! Dark Rock Pro 4': 'Pictures/Cooler/be quiet! Dark Rock Pro 4.png',
+    'Noctua NH-D15': 'Pictures/Cooler/Noctua NH-D15.png',
+    'Cooler Master Hyper 212 Black': 'Pictures/Cooler/Cooler Master Hyper 212 Black.png',
+    'Arctic Liquid Freezer II 240mm': 'Pictures/Cooler/Arctic Liquid Freezer II 240mm.png'
+  },
+  monitor: {
+    'LG 27GP950-B 27" 4K 160Hz Nano IPS': 'Pictures/Monitor/LG 27GP950-B 27 4K 160Hz Nano IPS.png',
+    'Samsung Odyssey G7 27" 1440p 240Hz': 'Pictures/Monitor/Samsung Odyssey G7 27 1440p 240Hz.png',
+    'ASUS ROG Swift PG279QM 27" 1440p 240Hz': 'Pictures/Monitor/ASUS ROG Swift PG279QM 27 1440p 240Hz.png',
+    'BenQ MOBIUZ EX2510S 24.5" 1080p 165Hz': 'Pictures/Monitor/BenQ MOBIUZ EX2510S 24.5 1080p 165Hz.png',
+    'Dell S2722DGM 27" 1440p 165Hz': 'Pictures/Monitor/Dell S2722DGM 27 1440p 165Hz.png'
+  },
+  keyboard: {
+    'Corsair K100 RGB Mechanical': 'Pictures/Keyboard/Corsair K100 RGB Mechanical.png',
+    'Logitech G Pro X TKL Wireless': 'Pictures/Keyboard/Logitech G Pro X TKL Wireless.png',
+    'Razer BlackWidow V3 TKL': 'Pictures/Keyboard/Razer BlackWidow V3 TKL.png',
+    'SteelSeries Apex Pro TKL': 'Pictures/Keyboard/SteelSeries Apex Pro TKL.png',
+    'Keychron K2 Pro Wireless': 'Pictures/Keyboard/Keychron K2 Pro Wireless.png'
+  },
+  mouse: {
+    'Logitech G Pro X Superlight 2': 'Pictures/Mouse/Logitech G Pro X Superlight 2.png',
+    'Razer DeathAdder V3 Pro': 'Pictures/Mouse/Razer DeathAdder V3 Pro.png',
+    'SteelSeries Rival 600': 'Pictures/Mouse/SteelSeries Rival 600.png',
+    'Corsair Scimitar Elite RGB': 'Pictures/Mouse/Corsair Scimitar Elite RGB.png',
+    'Glorious Model O Wireless': 'Pictures/Mouse/Glorious Model O Wireless.png'
+  },
+  headset: {
+    'SteelSeries Arctis Nova Pro Wireless': 'Pictures/Headset/SteelSeries Arctis Nova Pro Wireless.png',
+    'Corsair HS80 RGB Wireless': 'Pictures/Headset/Corsair HS80 RGB Wireless.png',
+    'Razer BlackShark V2 Pro': 'Pictures/Headset/Razer BlackShark V2 Pro.png',
+    'HyperX Cloud Alpha Wireless': 'Pictures/Headset/HyperX Cloud Alpha Wireless.png'
+  },
+  mousepad: {
+    'SteelSeries QcK Heavy XXL': 'Pictures/Mousepad/SteelSeries QcK Heavy XXL.png',
+    'Logitech G840 XL': 'Pictures/Mousepad/Logitech G840 XL.png',
+    'Corsair MM700 RGB Extended': 'Pictures/Mousepad/Corsair MM700 RGB Extended.png',
+    'Glorious XXL Heavy': 'Pictures/Mousepad/Glorious XXL Heavy.png'
+  },
+  webcam: {
+    'Logitech Brio 4K': 'Pictures/Webcam/Logitech Brio 4K.png',
+    'Razer Kiyo Pro': 'Pictures/Webcam/Razer Kiyo Pro.png',
+    'Elgato Facecam': 'Pictures/Webcam/Elgato Facecam.png'
+  },
+  ups: {
+    'APC Back-UPS Pro 1500VA': 'Pictures/UPS/APC Back-UPS Pro 1500VA.png',
+    'CyberPower CP1500PFCLCD 1500VA': 'Pictures/UPS/CyberPower CP1500PFCLCD 1500VA.png',
+    'Belkin 8-Outlet Surge Protector': 'Pictures/UPS/Belkin 8-Outlet Surge Protector.png'
+  }
+};
+
+function getComponentImage(category, name) {
+  return COMPONENT_IMAGE_MAP[category]?.[name] || null;
+}
+
+/* ═══════════════════════════════ TOAST ═══════════════════════════════ */
+(function () {
+  function ensureContainer() {
+    let c = document.getElementById('toastContainer');
+    if (!c) { c = document.createElement('div'); c.id = 'toastContainer'; c.className = 'toast-container'; document.body.appendChild(c); }
+    return c;
+  }
+  function makeToast(msg, type = 'info', duration = 3000) {
+    const box = document.createElement('div');
+    box.className = `toast ${type}`;
+    const icon = document.createElement('div'); icon.className = 'toast-icon';
+    icon.textContent = type === 'success' ? '✅' : type === 'warning' ? '⚠️' : type === 'error' ? '⛔' : 'ℹ️';
+    const text = document.createElement('div'); text.className = 'toast-msg'; text.textContent = msg;
+    box.appendChild(icon); box.appendChild(text);
+    ensureContainer().appendChild(box);
+    const to = setTimeout(() => { box.style.opacity = '0'; setTimeout(() => box.remove(), 300); clearTimeout(to); }, duration);
+    box.addEventListener('click', () => { box.style.opacity = '0'; setTimeout(() => box.remove(), 200); });
+  }
+  window.Toast = { show(msg, type = 'info', duration = 3000) { try { makeToast(msg, type, duration); } catch (e) { console.warn('Toast error', e); } } };
+})();
+
+/* ═══════════════════════════════ CART ═══════════════════════════════ */
+const Cart = (() => {
+  let items = [];
+  let wishlist = [];
+  try { items = JSON.parse(localStorage.getItem('pccraft_cart') || '[]'); } catch(e) {}
+  try { wishlist = JSON.parse(localStorage.getItem('pccraft_wishlist') || '[]'); } catch(e) {}
+
+  function save() {
+    try { localStorage.setItem('pccraft_cart', JSON.stringify(items)); localStorage.setItem('pccraft_wishlist', JSON.stringify(wishlist)); } catch(e){}
+  }
+  function addItem(product, qty = 1) {
+    const existing = items.find(i => i.id === product.id);
+    if (existing) { existing.qty += qty; } else { items.push({ ...product, qty }); }
+    save(); render(); updateBadges();
+    Toast.show(`${product.name} added to cart`, 'success');
+  }
+  function removeItem(id) { items = items.filter(i => i.id !== id); save(); render(); updateBadges(); }
+  function updateQty(id, delta) {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    item.qty = Math.max(1, item.qty + delta);
+    if (item.qty === 0) removeItem(id);
+    save(); render(); updateBadges();
+  }
+  function clearCart() { items = []; save(); render(); updateBadges(); }
+  function getTotal() { return items.reduce((sum, i) => sum + i.price * i.qty, 0); }
+  function getCount() { return items.reduce((sum, i) => sum + i.qty, 0); }
+  function addToWishlist(product) {
+    if (wishlist.find(i => i.id === product.id)) { Toast.show('Already in wishlist', 'warning'); return; }
+    wishlist.push(product); save(); renderWishlist(); updateBadges();
+    Toast.show(`${product.name} added to wishlist`, 'info');
+  }
+  function removeFromWishlist(id) { wishlist = wishlist.filter(i => i.id !== id); save(); renderWishlist(); updateBadges(); }
+  function wishlistToCart() {
+    if (!wishlist.length) return;
+    wishlist.forEach(p => addItem(p)); wishlist = []; save(); renderWishlist(); updateBadges();
+    Toast.show('All wishlist items moved to cart', 'success');
+  }
+  function isInWishlist(id) { return wishlist.some(i => i.id === id); }
+  function wishlistItemToCart(id) {
+    const item = wishlist.find(i => i.id === id);
+    if (item) { addItem(item); removeFromWishlist(id); }
+  }
+  function render() {
+    const container = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    if (!container) return;
+    if (!items.length) {
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><p>Your cart is empty.</p><p class="empty-sub">Start building your dream PC!</p></div>`;
+      if (totalEl) totalEl.textContent = '$0.00';
+      return;
+    }
+    container.innerHTML = items.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <div class="cart-item-left">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-sub">${item.brand || ''} — $${item.price.toFixed(2)} each</div>
+          <div style="margin-top:6px"><button class="remove-btn" onclick="Cart.remove('${item.id}')">Remove</button></div>
+        </div>
+        <div class="cart-item-right">
+          <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="Cart.updateQty('${item.id}', -1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="Cart.updateQty('${item.id}', 1)">+</button>
+          </div>
+        </div>
+      </div>`).join('');
+    if (totalEl) totalEl.textContent = `$${getTotal().toFixed(2)}`;
+  }
+  function renderWishlist() {
+    const container = document.getElementById('wishlistItems');
+    if (!container) return;
+    if (!wishlist.length) {
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">❤️</div><p>Your wishlist is empty.</p><p class="empty-sub">Save parts you love!</p></div>`;
+      return;
+    }
+    container.innerHTML = wishlist.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <div class="cart-item-left">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-sub">${item.brand || ''}</div>
+          <div style="margin-top:6px;display:flex;gap:8px;">
+            <button class="btn btn-xs btn-primary" onclick="Cart.wishlistItemToCart('${item.id}')">Add to Cart</button>
+            <button class="remove-btn" onclick="Cart.removeFromWishlist('${item.id}')">Remove</button>
+          </div>
+        </div>
+        <div class="cart-item-right"><div class="cart-item-price">$${item.price.toFixed(2)}</div></div>
+      </div>`).join('');
+  }
+  function updateBadges() {
+    const cb = document.getElementById('cartCount');
+    const wb = document.getElementById('wishlistCount');
+    if (cb) cb.textContent = getCount();
+    if (wb) wb.textContent = wishlist.length;
+  }
+  function openCart() { document.getElementById('cartDrawer')?.classList.add('open'); document.getElementById('wishlistDrawer')?.classList.remove('open'); document.getElementById('drawerOverlay')?.classList.add('active'); }
+  function openWishlist() { document.getElementById('wishlistDrawer')?.classList.add('open'); document.getElementById('cartDrawer')?.classList.remove('open'); document.getElementById('drawerOverlay')?.classList.add('active'); }
+  function closeDrawers() { document.getElementById('cartDrawer')?.classList.remove('open'); document.getElementById('wishlistDrawer')?.classList.remove('open'); document.getElementById('drawerOverlay')?.classList.remove('active'); }
+  function init() {
+    render(); renderWishlist(); updateBadges();
+    document.getElementById('cartToggle')?.addEventListener('click', openCart);
+    document.getElementById('wishlistToggle')?.addEventListener('click', openWishlist);
+    document.getElementById('cartClose')?.addEventListener('click', closeDrawers);
+    document.getElementById('wishlistClose')?.addEventListener('click', closeDrawers);
+    document.getElementById('drawerOverlay')?.addEventListener('click', closeDrawers);
+    document.getElementById('clearCartBtn')?.addEventListener('click', () => { clearCart(); Toast.show('Cart cleared', 'info'); });
+    document.getElementById('wishlistToCart')?.addEventListener('click', wishlistToCart);
+    document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+      if (!items.length) { Toast.show('Your cart is empty!', 'warning'); return; }
+      Toast.show(`Order placed! Total: $${getTotal().toFixed(2)} ✅`, 'success');
+      clearCart(); closeDrawers();
+    });
+  }
+  return { init, addItem, remove: removeItem, updateQty, clearCart, addToWishlist, removeFromWishlist, wishlistToCart, wishlistItemToCart, isInWishlist, getTotal, getCount, openCart, openWishlist, closeDrawers, getItems: () => items };
+})();
+window.Cart = Cart;
+
+/* ═══════════════════════════════ BUILDER ═══════════════════════════════ */
+const Builder = (() => {
+  const build = { cpu:null, motherboard:null, ram:null, gpu:null, storage_primary:null, storage_secondary:null, psu:null, case:null, cooler:null, case_fans:null, os:null, monitor:null, keyboard:null, mouse:null, headset:null, mousepad:null, webcam:null, ups:null };
+  const SLOT_LABELS = { cpu:'CPU', motherboard:'Motherboard', ram:'RAM', gpu:'GPU', storage_primary:'Primary Storage', storage_secondary:'Secondary Storage', psu:'Power Supply', case:'Case', cooler:'CPU Cooler', case_fans:'Case Fans', os:'Operating System', monitor:'Monitor', keyboard:'Keyboard', mouse:'Mouse', headset:'Headset', mousepad:'Mousepad', webcam:'Webcam', ups:'UPS' };
+  const BASE_SYSTEM_DRAW = 50;
+  let activeSlot = null;
+
+  function openModal(slot) {
+    activeSlot = slot;
+    const overlay = document.getElementById('modalOverlay');
+    const title = document.getElementById('modalTitle');
+    const search = document.getElementById('modalSearch');
+    title.textContent = `Choose ${SLOT_LABELS[slot] || slot}`;
+    if (search) search.value = '';
+    overlay?.classList.add('active');
+    setTimeout(() => search?.focus(), 100);
+    renderModalItems(slot, '');
+  }
+  function renderModalItems(slot, query) {
+    const body = document.getElementById('modalBody');
+    if (!body) return;
+    const items = (window.PCData.components[slot] || []);
+    const q = query.toLowerCase();
+    const filtered = q ? items.filter(i => i.name.toLowerCase().includes(q) || (i.brand||'').toLowerCase().includes(q) || (i.specs||'').toLowerCase().includes(q)) : items;
+    if (!filtered.length) { body.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:24px 0;">No results found.</p>'; return; }
+    body.innerHTML = filtered.map(item => {
+      const isSelected = build[slot]?.id === item.id;
+      const sub = buildModalSub(slot, item);
+      return `<div class="modal-item ${isSelected ? 'selected' : ''}" data-id="${item.id}" data-slot="${slot}">
+        <div class="modal-item-info"><div class="modal-item-name">${item.name}</div><div class="modal-item-sub">${sub}</div></div>
+        <div class="modal-item-price">${item.price === 0 ? 'Free' : '$' + item.price.toFixed(2)}</div>
+        <button class="modal-item-select">${isSelected ? '✓ Selected' : 'Select'}</button>
+      </div>`;
+    }).join('');
+  }
+  function buildModalSub(slot, item) {
+    const parts = [];
+    if (item.brand) parts.push(item.brand);
+    if (item.specs) parts.push(item.specs);
+    if (item.socket) parts.push(`Socket: ${item.socket}`);
+    if (item.wattage) parts.push(`${item.wattage}W ${item.rating || ''}`);
+    if (item.capacity) parts.push(item.capacity);
+    if (item.speed) parts.push(item.speed);
+    if (item.vram) parts.push(item.vram);
+    if (item.resolution) parts.push(item.resolution);
+    if (item.refreshRate) parts.push(item.refreshRate);
+    return parts.join(' · ');
+  }
+  function closeModal() { document.getElementById('modalOverlay')?.classList.remove('active'); activeSlot = null; }
+  function selectItem(id, slot) {
+    const items = window.PCData.components[slot] || [];
+    const product = items.find(i => i.id === id);
+    if (!product) return;
+    build[slot] = product;
+    closeModal(); updateSlot(slot); runCompatibility(); updatePower(); updateRecommendations(); updateSummary();
+  }
+  function updateSlot(slot) {
+    const product = build[slot];
+    const slotEl = document.getElementById(`slot-${slot}`);
+    const selectedEl = document.getElementById(`selected-${slot}`);
+    const priceEl = document.getElementById(`price-${slot}`);
+    const clearBtns = document.querySelectorAll(`.slot-clear[data-slot="${slot}"]`);
+    if (!slotEl) return;
+    if (product) {
+      slotEl.classList.add('filled');
+      if (selectedEl) selectedEl.textContent = product.name;
+      if (priceEl) priceEl.textContent = product.price === 0 ? 'Free' : `$${product.price.toFixed(2)}`;
+      clearBtns.forEach(b => b.classList.remove('hidden'));
+    } else {
+      slotEl.classList.remove('filled','has-warning','has-error');
+      if (selectedEl) selectedEl.textContent = `No ${SLOT_LABELS[slot]} selected`;
+      if (priceEl) priceEl.textContent = '—';
+      clearBtns.forEach(b => b.classList.add('hidden'));
+    }
+  }
+  function clearSlot(slot) { build[slot] = null; updateSlot(slot); runCompatibility(); updatePower(); updateRecommendations(); updateSummary(); }
+  function estimatePowerDraw() {
+    let draw = BASE_SYSTEM_DRAW;
+    if (build.cpu) draw += build.cpu.tdp || 65;
+    if (build.gpu) draw += build.gpu.tdp || 150;
+    if (build.storage_primary) draw += 5;
+    if (build.storage_secondary) draw += 5;
+    if (build.case_fans) draw += 15;
+    if (build.cooler && build.cooler.type === 'AIO Liquid') draw += 10;
+    return draw;
+  }
+  function runCompatibility() {
+    const warnings = [], errors = [];
+    if (build.cpu && build.motherboard) {
+      if (build.cpu.socket !== build.motherboard.socket) {
+        errors.push(`CPU socket (${build.cpu.socket}) doesn't match Motherboard socket (${build.motherboard.socket}).`);
+        document.getElementById('slot-cpu')?.classList.add('has-error');
+        document.getElementById('slot-motherboard')?.classList.add('has-error');
+      } else {
+        document.getElementById('slot-cpu')?.classList.remove('has-error');
+        document.getElementById('slot-motherboard')?.classList.remove('has-error');
+      }
+    }
+    if (build.ram && build.motherboard) {
+      const needsDDR5 = ['Z790','X670E','B650'].includes(build.motherboard.chipset);
+      const needsDDR4 = ['B760','H610'].includes(build.motherboard.chipset);
+      if (needsDDR5 && build.ram.type === 'DDR4') errors.push(`This motherboard (${build.motherboard.chipset}) requires DDR5 RAM.`);
+      else if (needsDDR4 && build.ram.type === 'DDR5') warnings.push(`Some B760 boards support DDR5 — verify your specific model.`);
+    }
+    if (build.cpu && build.cooler && build.cooler.tdpSupport && build.cpu.tdp > build.cooler.tdpSupport)
+      warnings.push(`Cooler TDP support (${build.cooler.tdpSupport}W) may be insufficient for your CPU (${build.cpu.tdp}W).`);
+    if (build.psu) {
+      const draw = estimatePowerDraw(); const headroom = build.psu.wattage - draw;
+      if (headroom < 0) errors.push(`PSU (${build.psu.wattage}W) is undersized for estimated draw (${draw}W).`);
+      else if (headroom < 100) warnings.push(`PSU headroom is tight (${headroom}W remaining).`);
+    }
+    const panel = document.getElementById('compatWarnings'); const status = document.getElementById('compatStatus');
+    if (!panel) return;
+    if (!errors.length && !warnings.length) {
+      panel.innerHTML = '<p class="compat-hint">✅ No issues detected.</p>';
+      if (status) { status.textContent = 'All Good'; status.className = 'compat-status ok'; }
+    } else {
+      let html = '';
+      errors.forEach(e => { html += `<div class="compat-error">🚫 ${e}</div>`; });
+      warnings.forEach(w => { html += `<div class="compat-warning">⚠️ ${w}</div>`; });
+      panel.innerHTML = html;
+      if (status) { status.textContent = errors.length ? 'Issues Found' : 'Warnings'; status.className = errors.length ? 'compat-status error' : 'compat-status warn'; }
+    }
+  }
+  function updatePower() {
+    const draw = estimatePowerDraw();
+    const cap = build.psu ? build.psu.wattage : 0;
+    const pct = cap > 0 ? Math.min(100, (draw / cap) * 100) : 0;
+    const fill = document.getElementById('powerBarFill');
+    const drawEl = document.getElementById('powerDraw');
+    const capEl = document.getElementById('powerCap');
+    const statusEl = document.getElementById('powerStatus');
+    if (fill) { fill.style.width = pct + '%'; fill.className = 'power-bar-fill' + (pct > 90 ? ' danger' : pct > 75 ? ' warn' : ''); }
+    if (drawEl) drawEl.textContent = `${draw}W draw`;
+    if (capEl) capEl.textContent = cap > 0 ? `/ ${cap}W PSU` : '/ — PSU';
+    if (statusEl) {
+      if (!build.psu) statusEl.textContent = '— Select a PSU —';
+      else if (pct > 90) statusEl.textContent = `⚠️ PSU at ${Math.round(pct)}% — consider upgrading`;
+      else if (pct > 75) statusEl.textContent = `⚡ PSU at ${Math.round(pct)}% — tight but OK`;
+      else statusEl.textContent = `✅ ${build.psu.wattage - draw}W headroom — looks good`;
+    }
+  }
+  function updateRecommendations() {
+    const el = document.getElementById('buildRecommendations');
+    if (!el) return;
+    const recs = [];
+    if (!build.cpu) recs.push({ icon:'💡', text:'Start by selecting a CPU — it determines your motherboard socket.' });
+    if (build.cpu && !build.motherboard) recs.push({ icon:'🔗', text:`Your CPU uses socket ${build.cpu.socket}. Pick a compatible motherboard.` });
+    if (build.cpu && build.motherboard && !build.cooler) {
+      if (build.cpu.tdp && build.cpu.tdp >= 125) recs.push({ icon:'🌀', text:'High-TDP CPU detected — consider a 240mm+ AIO or tower cooler.' });
+      else recs.push({ icon:'🌀', text:"Don't forget a CPU cooler! Air coolers are great for budget builds." });
+    }
+    if (build.gpu && !build.monitor) {
+      const vram = build.gpu.vram || '';
+      if (vram.includes('24GB') || vram.includes('16GB')) recs.push({ icon:'🖥️', text:'You have a flagship GPU — pair it with a 4K or 1440p 144Hz+ monitor.' });
+      else recs.push({ icon:'🖥️', text:'Add a monitor to complete your setup. Match refresh rate to your GPU.' });
+    }
+    if (!build.psu && (build.cpu || build.gpu)) {
+      const draw = estimatePowerDraw(); const recommended = Math.ceil((draw * 1.25) / 50) * 50;
+      recs.push({ icon:'⚡', text:`Based on your parts, we recommend a ${recommended}W+ PSU for safe headroom.` });
+    }
+    if (build.keyboard && !build.mouse) recs.push({ icon:'🖱️', text:"Don't forget a mouse to go with your keyboard!" });
+    if (build.mouse && !build.mousepad) recs.push({ icon:'🟫', text:'A large mousepad improves tracking accuracy and desk protection.' });
+    if (!recs.length) recs.push({ icon:'🎉', text:'Build looking great! Review the summary and add to cart.' });
+    el.innerHTML = recs.slice(0, 4).map(r => `<div class="rec-item"><span>${r.icon}</span><span>${r.text}</span></div>`).join('');
+  }
+  function updateSummary() {
+    const list = document.getElementById('buildSummaryList');
+    const total = document.getElementById('builderTotal');
+    const filled = Object.entries(build).filter(([, v]) => v !== null);
+    if (!filled.length) { if (list) list.innerHTML = '<p class="compat-hint">No parts selected yet.</p>'; if (total) total.textContent = '$0.00'; return; }
+    const sum = filled.reduce((acc, [, v]) => acc + (v.price || 0), 0);
+    if (list) list.innerHTML = filled.map(([slot, product]) => `<div class="build-summary-row"><span class="build-summary-key">${SLOT_LABELS[slot]}</span><span class="build-summary-val" title="${product.name}">${product.name}</span><span class="build-summary-price">${product.price === 0 ? 'Free' : '$' + product.price.toFixed(2)}</span></div>`).join('');
+    if (total) total.textContent = `$${sum.toFixed(2)}`;
+  }
+  function exportBuild() {
+    const filled = Object.entries(build).filter(([, v]) => v !== null);
+    if (!filled.length) { Toast.show('No parts to export yet!', 'warning'); return; }
+    const sum = filled.reduce((acc, [, v]) => acc + (v.price || 0), 0);
+    const lines = ['═══════════════════════════════', '       PC-CRAFT BUILD EXPORT   ', '═══════════════════════════════', ...filled.map(([slot, p]) => `${SLOT_LABELS[slot].padEnd(20)} ${p.name} — $${p.price.toFixed(2)}`), '───────────────────────────────', `${'ESTIMATED TOTAL'.padEnd(20)} $${sum.toFixed(2)}`, '═══════════════════════════════', 'Built with PC-Craft'];
+    const text = lines.join('\n');
+    navigator.clipboard.writeText(text).then(() => { Toast.show('Build copied to clipboard! 📋', 'success'); }).catch(() => {
+      const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); Toast.show('Build copied to clipboard! 📋', 'success');
+    });
+  }
+  function addBuildToCart() {
+    const filled = Object.entries(build).filter(([, v]) => v !== null);
+    if (!filled.length) { Toast.show('Your build is empty!', 'warning'); return; }
+    const required = ['cpu','motherboard','ram','gpu','storage_primary','psu','case','cooler'];
+    const missing = required.filter(s => !build[s]);
+    if (missing.length) { Toast.show(`Missing required parts: ${missing.map(s => SLOT_LABELS[s]).join(', ')}`, 'warning'); return; }
+    filled.forEach(([, p]) => Cart.addItem(p));
+    Toast.show(`Build added to cart! ${filled.length} items — $${filled.reduce((a,[,v])=>a+v.price,0).toFixed(2)}`, 'success');
+    Cart.openCart();
+  }
+  function clearBuild() {
+    Object.keys(build).forEach(slot => { build[slot] = null; updateSlot(slot); });
+    runCompatibility(); updatePower(); updateRecommendations(); updateSummary();
+    Toast.show('Build cleared', 'info');
+  }
+  function init() {
+    document.querySelectorAll('.slot-btn').forEach(btn => { btn.addEventListener('click', () => openModal(btn.dataset.slot)); });
+    document.querySelectorAll('.slot-clear').forEach(btn => { btn.addEventListener('click', () => clearSlot(btn.dataset.slot)); });
+    document.getElementById('modalClose')?.addEventListener('click', closeModal);
+    document.getElementById('modalOverlay')?.addEventListener('click', e => { if (e.target === document.getElementById('modalOverlay')) closeModal(); });
+    document.getElementById('modalBody')?.addEventListener('click', e => { const item = e.target.closest('.modal-item'); if (item && activeSlot) selectItem(item.dataset.id, item.dataset.slot || activeSlot); });
+    document.getElementById('modalSearch')?.addEventListener('input', e => { if (activeSlot) renderModalItems(activeSlot, e.target.value); });
+    document.getElementById('addBuildToCart')?.addEventListener('click', addBuildToCart);
+    document.getElementById('exportBuild')?.addEventListener('click', exportBuild);
+    document.getElementById('clearBuild')?.addEventListener('click', clearBuild);
+    updateRecommendations(); updateSummary();
+  }
+  return { init, clearBuild, getBuild: () => build, setSlot: (slot, product) => { build[slot] = product; updateSlot(slot); runCompatibility(); updatePower(); updateRecommendations(); updateSummary(); } };
+})();
+window.Builder = Builder;
+
+/* ═══════════════════════════════ PREBUILTS ═══════════════════════════════ */
+const Prebuilts = (() => {
+  const builds = [
+    { name:"Budget Gaming PC", cpu:"cpu008", motherboard:"mb008", ram:"ram003", gpu:"gpu005", storage_primary:"ssd002", psu:"psu005", case:"case003", cooler:"cool005" },
+    { name:"High-End Gaming PC", cpu:"cpu002", motherboard:"mb003", ram:"ram001", gpu:"gpu003", storage_primary:"ssd001", psu:"psu003", case:"case002", cooler:"cool002" },
+    { name:"Titan Workstation", cpu:"cpu005", motherboard:"mb005", ram:"ram006", gpu:"gpu001", storage_primary:"ssd001", psu:"psu001", case:"case001", cooler:"cool001" }
+  ];
+  function applyBuild(index) {
+    const pb = builds[index];
+    if (!pb || !window.PCData || !window.Builder) return;
+    window.Builder.clearBuild();
+    const components = window.PCData.components;
+    Object.entries(pb).forEach(([slot, id]) => {
+      if (slot === 'name') return;
+      const item = components?.[slot]?.find(p => p.id === id);
+      if (item) window.Builder.setSlot(slot, item);
+    });
+    Toast.show(`${pb.name} loaded into builder`, 'success');
+    document.getElementById('builder')?.scrollIntoView({ behavior: 'smooth' });
+  }
+  return { builds, applyBuild };
+})();
+window.Prebuilts = Prebuilts;
+
+/* ═══════════════════════════════ PREBUILTS RENDER ═══════════════════════════════ */
+function renderPrebuilts(filter = 'all') {
+  const grid = document.getElementById('prebuiltsGrid');
+  if (!grid) return;
+  const pbs = window.PCData.prebuilts;
+  const filtered = filter === 'all' ? pbs : pbs.filter(p => p.tier === filter || (p.tags && p.tags.includes(filter)));
+  if (!filtered.length) { grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;padding:48px 0;">No builds match this filter.</p>'; return; }
+  grid.innerHTML = filtered.map((pb, i) => {
+    const svgImg = getPrebuiltSVG(pb.tier);
+    const imageUrl = PREBUILT_IMAGE_MAP[pb.name] || null;
+    const imageMarkup = imageUrl ? `<img src="${encodeURI(imageUrl)}" alt="${pb.name}" />` : svgImg;
+    const specsHtml = Object.entries(pb.specs).map(([k, v]) => `<div class="spec-row"><span class="spec-key">${k.toUpperCase()}</span><span class="spec-val">${v}</span></div>`).join('');
+    return `
+    <div class="prebuilt-card" style="animation-delay:${i * 0.07}s">
+      <div class="card-image">
+        ${imageMarkup}
+        ${pb.badge ? `<span class="card-badge">${pb.badge}</span>` : ''}
+        <span class="card-tier">${pb.tier}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${pb.name}</div>
+        <div class="card-desc">${pb.description}</div>
+        <div class="card-specs">${specsHtml}</div>
+        <div class="card-footer">
+          <div class="card-price">$${pb.price.toLocaleString('en-US', {minimumFractionDigits:2})}</div>
+          <div class="card-actions">
+            <button class="btn btn-sm btn-outline" onclick="Cart.addToWishlist(${JSON.stringify(pb).replace(/"/g,'&quot;')})">♥</button>
+            <button class="btn btn-sm btn-primary" onclick="Cart.addItem(${JSON.stringify(pb).replace(/"/g,'&quot;')})">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════ COMPONENTS CATALOG RENDER ═══════════════════════════════ */
+let currentCat = 'cpu';
+function renderComponentsCatalog(cat = currentCat, query = '') {
+  const grid = document.getElementById('componentsGrid');
+  if (!grid) return;
+  currentCat = cat;
+  const items = window.PCData.components[cat] || [];
+  const q = query.toLowerCase();
+  const filtered = q ? items.filter(i => i.name.toLowerCase().includes(q) || (i.brand||'').toLowerCase().includes(q) || (i.specs||'').toLowerCase().includes(q)) : items;
+  if (!filtered.length) { grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;padding:48px 0;">No components found.</p>'; return; }
+  const svgImg = getComponentSVG(cat);
+  grid.innerHTML = filtered.map((item, i) => {
+    const imageUrl = getComponentImage(cat, item.name);
+    const imageMarkup = imageUrl ? `<img src="${encodeURI(imageUrl)}" alt="${item.name}"/>` : svgImg;
+    const specsLine = [item.specs, item.socket ? `Socket ${item.socket}` : '', item.wattage ? `${item.wattage}W` : '', item.capacity || '', item.speed || '', item.vram || '', item.resolution || '', item.refreshRate || ''].filter(Boolean).join(' · ');
+    const wishlisted = Cart.isInWishlist(item.id);
+    return `
+    <div class="component-card" style="animation-delay:${i * 0.04}s">
+      <div class="comp-image">${imageMarkup}</div>
+      <div class="comp-body">
+        <div class="comp-brand">${item.brand || ''}</div>
+        <div class="comp-name">${item.name}</div>
+        <div class="comp-specs">${specsLine}</div>
+        <div class="comp-footer">
+          <div class="comp-price">$${item.price.toFixed(2)}</div>
+          <div class="comp-actions">
+            <button class="wishlist-icon-btn ${wishlisted ? 'wishlisted' : ''}" title="${wishlisted ? 'In Wishlist' : 'Add to Wishlist'}" onclick="Cart.addToWishlist(${JSON.stringify(item).replace(/"/g,'&quot;')}); this.classList.add('wishlisted')">
+              <svg viewBox="0 0 24 24" fill="${wishlisted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+            <button class="btn btn-sm btn-primary" onclick="Cart.addItem(${JSON.stringify(item).replace(/"/g,'&quot;')})">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════ APP INIT ═══════════════════════════════ */
+function initApp() {
+  Cart.init();
+  Builder.init();
+
+  // Render initial sections
+  renderPrebuilts('all');
+  renderComponentsCatalog('cpu');
+
+  // Prebuilt filters
+  document.getElementById('prebuiltFilters')?.addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPrebuilts(btn.dataset.filter);
+  });
+
+  // Component catalog tabs
+  document.getElementById('catalogTabs')?.addEventListener('click', e => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('catalogSearch').value = '';
+    renderComponentsCatalog(btn.dataset.cat, '');
+  });
+
+  // Catalog search
+  document.getElementById('catalogSearch')?.addEventListener('input', e => {
+    renderComponentsCatalog(currentCat, e.target.value);
+  });
+
+  // Footer category links
+  document.querySelectorAll('[data-cat]').forEach(link => {
+    link.addEventListener('click', () => {
+      const cat = link.dataset.cat;
+      if (!cat) return;
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.toggle('active', b.dataset.cat === cat); });
+      renderComponentsCatalog(cat, '');
+    });
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger?.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks?.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => { hamburger?.classList.remove('open'); navLinks.classList.remove('open'); });
+  });
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Active nav link on scroll
+  const sections = ['home','prebuilts','builder','components'];
+  const navAnchors = document.querySelectorAll('.nav-link');
+  const observerOptions = { rootMargin: '-40% 0px -55% 0px' };
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id); });
+      }
+    });
+  }, observerOptions);
+  sections.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar')?.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  console.log('[PC-Craft] Ready ✅');
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>
