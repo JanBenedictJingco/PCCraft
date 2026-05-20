@@ -396,11 +396,11 @@ img { max-width: 100%; display: block; }
     <div class="hero-content">
       <div class="hero-carousel" aria-label="Banner carousel">
         <div class="hero-carousel-inner" id="heroCarouselInner">
-          <div class="hero-slide"><img src="Banners/1885x424px-PBA-Banner_1920x.png" alt="PC components showcase banner"></div>
-          <div class="hero-slide"><img src="Banners/AMD_Ryzen_9950X3D2_PCX_1800x600px_1_1920x.png" alt="AMD Ryzen 9000 Series banner"></div>
-          <div class="hero-slide"><img src="Banners/AMD_Website_Crimson_Desert_1920x.png" alt="Crimson Desert promotional banner"></div>
-          <div class="hero-slide"><img src="Banners/Desktop_Banner_D1_1920x_8e22fa3b-5d29-4875-bf43-20a6776e55fe_1920x.png" alt="Desktop gaming setup banner"></div>
-          <div class="hero-slide"><img src="Banners/viber_image_2025-07-03_13-40-54-866_1920x.png" alt="NVIDIA AI powered PC banner"></div>
+          <div class="hero-slide" data-cat="motherboard" data-query="Asus"><img src="Banners/1885x424px-PBA-Banner_1920x.png" alt="PC components showcase banner"></div>
+          <div class="hero-slide" data-cat="cpu" data-query="9950x3d2"><img src="Banners/AMD_Ryzen_9950X3D2_PCX_1800x600px_1_1920x.png" alt="AMD Ryzen 9000 Series banner"></div>
+          <div class="hero-slide" data-cat="cpu" data-query="AMD"><img src="Banners/AMD_Website_Crimson_Desert_1920x.png" alt="Crimson Desert promotional banner"></div>
+          <div class="hero-slide" data-cat="motherboard" data-query="MSI"><img src="Banners/Desktop_Banner_D1_1920x_8e22fa3b-5d29-4875-bf43-20a6776e55fe_1920x.png" alt="Desktop gaming setup banner"></div>
+          <div class="hero-slide" data-cat="gpu" data-query="NVIDIA"><img src="Banners/viber_image_2025-07-03_13-40-54-866_1920x.png" alt="NVIDIA AI powered PC banner"></div>
         </div>
         <div class="carousel-nav">
           <button class="carousel-btn" id="carouselPrev" aria-label="Previous banner">‹</button>
@@ -663,6 +663,28 @@ img { max-width: 100%; display: block; }
   updateCarousel();
 })();
 
+/* Make hero slides clickable: navigate to catalog and set search */
+(function() {
+  const slides = document.querySelectorAll('.hero-slide[data-cat]');
+  if (!slides || !slides.length) return;
+  slides.forEach(slide => {
+    slide.style.cursor = 'pointer';
+    slide.addEventListener('click', () => {
+      const cat = slide.dataset.cat;
+      const query = slide.dataset.query || '';
+      console.log('[Hero] clicked', { cat, query });
+      const searchInput = document.getElementById('catalogSearch');
+      if (searchInput) searchInput.value = query;
+      // Activate the tab button for the category
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+      // Render the catalog with the given query
+      try { renderComponentsCatalog(cat, query); } catch (e) { console.warn('Catalog render error', e); }
+      // Scroll to components section
+      document.getElementById('components')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+
 /* ═══════════════════════════════ DATA ═══════════════════════════════ */
 window.PCData = {
   prebuilts: [
@@ -696,6 +718,7 @@ window.PCData = {
       { id:"cpu007", name:"AMD Ryzen 7 7700X", brand:"AMD", price:299.99, socket:"AM5", tdp:105, specs:"8-Core, 5.4GHz Boost, 40MB Cache, Zen 4" },
       { id:"cpu008", name:"AMD Ryzen 5 7600X", brand:"AMD", price:249.99, socket:"AM5", tdp:105, specs:"6-Core, 5.3GHz Boost, 38MB Cache, Zen 4" },
       { id:"cpu009", name:"AMD Ryzen 5 7600", brand:"AMD", price:199.99, socket:"AM5", tdp:65, specs:"6-Core, 5.1GHz Boost, 38MB Cache, Zen 4" }
+        ,{ id:"cpu010", name:"AMD Ryzen 9 9950X3D2", brand:"AMD", price:899.99, socket:"AM5", tdp:170, specs:"16-Core, 5.6GHz Boost, 192MB Cache, Zen 5" }
     ],
     motherboard: [
       { id:"mb001", name:"ASUS ROG Maximus Z790 Hero", brand:"ASUS", price:629.99, socket:"LGA1700", chipset:"Z790", specs:"DDR5, PCIe 5.0, WiFi 6E, 5G LAN" },
@@ -878,6 +901,7 @@ const COMPONENT_IMAGE_MAP = {
     'AMD Ryzen 7 7700X': 'Pictures/CPU/AMD ryzen 7 7700x.png',
     'AMD Ryzen 5 7600X': 'Pictures/CPU/AMD ryzen 5 7600x.png',
     'AMD Ryzen 5 7600': 'Pictures/CPU/AMD Ryzen 5 7600.png'
+    , 'AMD Ryzen 9 9950X3D2': 'Pictures/CPU/amd ryzen 9000 series x3d2.png'
   },
   motherboard: {
     'ASUS ROG Maximus Z790 Hero': 'Pictures/Motherboard/ASUS ROG Maximus Z790 Hero.png',
@@ -1408,8 +1432,16 @@ function renderComponentsCatalog(cat = currentCat, query = '') {
   if (!grid) return;
   currentCat = cat;
   const items = window.PCData.components[cat] || [];
-  const q = query.toLowerCase();
-  const filtered = q ? items.filter(i => i.name.toLowerCase().includes(q) || (i.brand||'').toLowerCase().includes(q) || (i.specs||'').toLowerCase().includes(q)) : items;
+  const q = (query || '').toLowerCase().trim();
+  let filtered = items;
+  if (q) {
+    const tokens = q.split(/\s+/).filter(Boolean);
+    filtered = items.filter(i => {
+      const hay = [i.name, i.brand, i.specs, i.socket, i.vram, i.capacity, i.speed].filter(Boolean).join(' ').toLowerCase();
+      return tokens.every(t => hay.includes(t));
+    });
+  }
+  console.log('[Catalog] render', { cat, query: q, items: items.length, filtered: filtered.length });
   if (!filtered.length) { grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;padding:48px 0;">No components found.</p>'; return; }
   const svgImg = getComponentSVG(cat);
   grid.innerHTML = filtered.map((item, i) => {
