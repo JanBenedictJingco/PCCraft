@@ -663,28 +663,6 @@ img { max-width: 100%; display: block; }
   updateCarousel();
 })();
 
-/* Make hero slides clickable: navigate to catalog and set search */
-(function() {
-  const slides = document.querySelectorAll('.hero-slide[data-cat]');
-  if (!slides || !slides.length) return;
-  slides.forEach(slide => {
-    slide.style.cursor = 'pointer';
-    slide.addEventListener('click', () => {
-      const cat = slide.dataset.cat;
-      const query = slide.dataset.query || '';
-      console.log('[Hero] clicked', { cat, query });
-      const searchInput = document.getElementById('catalogSearch');
-      if (searchInput) searchInput.value = query;
-      // Activate the tab button for the category
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
-      // Render the catalog with the given query
-      try { renderComponentsCatalog(cat, query); } catch (e) { console.warn('Catalog render error', e); }
-      // Scroll to components section
-      document.getElementById('components')?.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-})();
-
 /* ═══════════════════════════════ DATA ═══════════════════════════════ */
 window.PCData = {
   prebuilts: [
@@ -1479,6 +1457,51 @@ function initApp() {
   renderPrebuilts('all');
   renderComponentsCatalog('cpu');
 
+  // Apply query parameters from URL (if present) to set catalog and filter
+  function applyQueryFromUrl(pushScroll = false) {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('cat');
+      const query = params.get('query') || '';
+      if (cat) {
+        // Activate tab button
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+        // Set search input
+        const searchInput = document.getElementById('catalogSearch');
+        if (searchInput) searchInput.value = query;
+        // Render catalog with query
+        try { renderComponentsCatalog(cat, query); } catch (e) { console.warn('Catalog render error', e); }
+        // Also dispatch input so any additional listeners react to the programmatic value
+        try {
+          const searchInput = document.getElementById('catalogSearch');
+          if (searchInput) {
+            const ev = new Event('input', { bubbles: true });
+            searchInput.dispatchEvent(ev);
+          }
+        } catch (evErr) { /* ignore */ }
+        if (pushScroll) document.getElementById('components')?.scrollIntoView({ behavior: 'smooth' });
+        return true;
+      } else if (query) {
+        // If only query present, apply to current category
+        const searchInput = document.getElementById('catalogSearch');
+        if (searchInput) searchInput.value = query;
+        try { renderComponentsCatalog(currentCat, query); } catch (e) { console.warn('Catalog render error', e); }
+        try {
+          const searchInput = document.getElementById('catalogSearch');
+          if (searchInput) searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+        } catch (evErr) { /* ignore */ }
+        if (pushScroll) document.getElementById('components')?.scrollIntoView({ behavior: 'smooth' });
+        return true;
+      }
+    } catch (e) { console.warn('applyQueryFromUrl error', e); }
+    return false;
+  }
+
+  // If URL has params on load, apply them
+  applyQueryFromUrl(false);
+  // Listen for browser history navigation
+  window.addEventListener('popstate', () => applyQueryFromUrl(true));
+
   // Prebuilt filters
   document.getElementById('prebuiltFilters')?.addEventListener('click', e => {
     const btn = e.target.closest('.filter-btn');
@@ -1500,11 +1523,47 @@ function initApp() {
 
   // Catalog search
   document.getElementById('catalogSearch')?.addEventListener('input', e => {
-    renderComponentsCatalog(currentCat, e.target.value);
+    const q = e.target.value || '';
+    // Update URL query param without creating a new history entry
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('cat', currentCat);
+      if (q) url.searchParams.set('query', q); else url.searchParams.delete('query');
+      window.history.replaceState({}, '', url);
+    } catch (err) { /* ignore */ }
+    renderComponentsCatalog(currentCat, q);
+  });
+
+  // Hero/banner click behavior
+  document.querySelectorAll('.hero-slide[data-cat]').forEach(slide => {
+    slide.style.cursor = 'pointer';
+    slide.addEventListener('click', () => {
+      const cat = slide.dataset.cat;
+      const query = slide.dataset.query || '';
+      console.log('[Hero] clicked', { cat, query });
+      const searchInput = document.getElementById('catalogSearch');
+      if (searchInput) searchInput.value = query;
+      // Update URL so this action is shareable / navigable
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('cat', cat);
+        if (query) url.searchParams.set('query', query); else url.searchParams.delete('query');
+        window.history.pushState({}, '', url);
+      } catch (e) { /* ignore URL errors */ }
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+      try { renderComponentsCatalog(cat, query); } catch (e) { console.warn('Catalog render error', e); }
+      try {
+        if (searchInput) {
+          const ev = new Event('input', { bubbles: true });
+          searchInput.dispatchEvent(ev);
+        }
+      } catch (evErr) { /* ignore dispatch errors */ }
+      document.getElementById('components')?.scrollIntoView({ behavior: 'smooth' });
+    });
   });
 
   // Footer category links
-  document.querySelectorAll('[data-cat]').forEach(link => {
+  document.querySelectorAll('.footer-links a[data-cat]').forEach(link => {
     link.addEventListener('click', () => {
       const cat = link.dataset.cat;
       if (!cat) return;
